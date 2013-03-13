@@ -1,0 +1,3 @@
+{$trocaSenhaTempo}
+{$tempoTrocaSenha}
+{$forcaTrocaSenha}

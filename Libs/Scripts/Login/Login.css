@@ -1,0 +1,21 @@
+#tableLogin{
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+}
+#containerLogin{
+	border: 1px solid #000;
+	background-color: #000000;
+}
+#cadeado{
+	margin-top: 25px;
+	margin-left: 20px;
+	width: 140px;
+	height: 136px;
+	float: left;
+}
+#logoEmpresa{
+	border: 1px solid #000;
+	height: 56px;
+}
