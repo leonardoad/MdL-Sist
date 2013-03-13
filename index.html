@@ -1,0 +1,42 @@
+
+<html>
+    <head>
+        <title>Listagem de Tarefas</title>
+        <link rel="stylesheet" type="text/css" href="css/estilos.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <!-- Importando a biblioteca javascript  -->
+        <script language="javascript" src="js/tarefas.js"></script>
+        <!-- Importando a biblioteca javascript Prototype -->
+        <script language="javascript" src="js/prototype.js"></script>
+
+        
+    </head>
+    <!-- Na inicialização da página é executada a função createGrid. Essa função cria a tabela de listagem com os dados do banco -->
+    <body  onLoad="javascript:createGrid();">
+        <div class="conteiner">
+            <!-- Imagem de animação do processamento -->
+            <div id="msg" ></div>
+
+            <div class="cabecalho">
+                <div id="logo"></div>
+            </div>
+            <div>
+                <form action="" method="post">
+                    <fieldset >
+                        <legend>Adicionar Tarefa</legend>
+                        <label for="pesq_descricao">Descrição: </label><input type="text" style="width: 400px" id="pesq_descricao" onKeyUp="javascript: pesquisar();">
+                        <label for="pesq_tempo">Tempo:</label> <input type="text" style="width: 50px"id="pesq_tempo" > Hs
+                        <input type="button" name="Button" value="Cadastrar" onClick="cadastrar();">
+                        <input type="button" name="Button" value="MostrarTodos" onClick="mostrarTodos();">
+                        <!--<input type="button" name="Button" value="Buscar" onClick="javascript:pesquisar();">-->
+                    </fieldset>
+                </form>
+            </div>
+            <h3 class="titulo">tarefas</h3>
+            <!-- Camada onde será mostrada a tabela de listagem -->
+            
+            <div id="listagem">lista</div>
+        </div>
+        <div class="footer"><p>Todos os direitos reservados - Leonardo Danieli - leonardo.danieli@gmail.com</p></div>
+    </body>
+</html>
