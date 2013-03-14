@@ -17,11 +17,13 @@
 error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
 
 // BASE eh o caminho apartir da raiz do site(Ex.: na locaweb e o "public_htm", mas o caminho fica sem o "public_html")
-define('BASE', 'mdlsiste');  
+define('BASE', "mdlsist/MdL-Sist");  
 
 // HTTP_HOST eh endereco web do site ex: "http://facebook.com"
 define('HTTP_HOST', 'http://' . $_SERVER['HTTP_HOST']);
 
+/*  aqui são feitas as verificações de sistema operacional para saber qual barra ('\'ou '/') usar 
+ * e qual separador (':' ou ';') dos paths para o set_include_path()*/
 $operatingSystem = stripos($_SERVER['SERVER_SOFTWARE'], 'win32') !== FALSE ? 'WINDOWS' : 'LINUX';
 $bar = $operatingSystem == 'WINDOWS' ? '\\' : '/';
 $pathSeparator = $operatingSystem == 'WINDOWS' ? ';' : ':';
@@ -45,6 +47,8 @@ include RAIZ_DIRETORY . $applicationName . 'Application/Constantes.php';
 
 include 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
+include_once 'Application/Models/Config.php';
+include_once 'Application/Models/Log.php';
 
 Zend_Registry::set('js', array());
 Zend_Registry::set('css', array());
@@ -145,6 +149,7 @@ Zend_Registry::set('db', $db);
 //$act = $array[4];
 $controller = $array[$pos+2];
 $act = $array[$pos+3];
+//die($controller.'w');
 
 $session = Zend_Registry::get('session');
 
@@ -157,10 +162,11 @@ if ($act == null) {
 }
 
 Zend_Registry::set('controller', $controller);
+//  print'<pre>';die(print_r($controller ));
 Zend_Registry::set('act', $act);
 
 $web = substr($controller, 0, 3);
-
+//print'<pre>';die(print_r($web ));
 if (strcasecmp($web, 'web') != 0) {
     $flag = true;
     $frontController->setControllerDirectory('./Application/Controllers');
@@ -177,9 +183,9 @@ if ($controller == 'Arquivo' && $act == 'upload') {
 
 function setBrowserUrl($ctrl, $array,$pos = 0) {
 //    print'<pre>';
-//    die(print_r(count($array)));
+//    die(print_r(5+ $pos));
     $html = "<script type='text/javascript'>";
-    if (count($array) < 5+ $pos) {
+    if (count($array) <= 5+ $pos) {
         $html .="window.parent.location = './" . $ctrl . "';";
     } else {
         for ($i = 4; $i < count($array); $i++) {
@@ -193,9 +199,10 @@ function setBrowserUrl($ctrl, $array,$pos = 0) {
     return $html;
 }
 
-//print'<pre>';die(print_r( $controller ));
+//print'<pre>';die(var_dump( $flag ));
 if ($flag) {
     if (strcasecmp($controller, 'login') != 0) {
+//            print'<pre>';die(var_dump( 'ahan!!!' ));
         if (!isset($session->usuario)) {
             $post = Zend_Registry::get('post');
             if (!isset($post->ajax)) {
@@ -226,6 +233,9 @@ if ($flag) {
         }
     }
 }
+
+//  print'<pre>';die(print_r($frontController ));
+
 #####################################################################################################################
 
 setlocale(LC_MONETARY, 'ptb');

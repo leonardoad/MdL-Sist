@@ -14,7 +14,7 @@ class Usuario extends Db_Table {
 
 	protected $_classList = array(array('nome'=>'Permissao', 'campo'=>'id_usuario'));
 
-	protected $_log_text = 'Usúario';
+	protected $_log_text = 'Usuário';
 	protected $_log_info = 'a_nomecompleto';
 
 	public function setDataFromRequest($post) {

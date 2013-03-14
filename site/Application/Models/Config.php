@@ -1,6 +1,6 @@
 <?php
 /**
- * Modelo da classe Usuario
+ * Modelo da classe Config
  * @filesource
  * @author 		Ismael Sleifer
  * @copyright 	Ismael Sleifer Web Designer

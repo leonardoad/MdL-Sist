@@ -1,4 +1,13 @@
 <?php
+/**
+ * Controller que cria e trata as requests da tela de login
+ * 
+ * @author 	Ismael Sleifer
+ * @copyright 	Ismael Sleifer Web Designer
+ * @package     sistema
+ * @subpackage	sistema.apllication.controllers
+ * @version		1.0
+ */
 class LoginController extends Zend_Controller_Action{
 	public function init(){
 		Browser_Control::setScript('css', 'Login', 'Login/Login.css');
@@ -60,14 +69,15 @@ class LoginController extends Zend_Controller_Action{
 
 		$post = Zend_Registry::get('post');
 		$users = new Usuario();
-		$users->where('loginuser', $post->user);
-		$users->where('senha', Format_Crypt ::encryptPass($post->senha));
-		$users->where('ativo', 'S');
+		$users->where('loginuser', $post->user, 'like');
+		$users->where('senha', Format_Crypt::encryptPass($post->senha), 'like');
+		$users->where('ativo', 'S', 'like');
 		$user = $users->readLst()->getItem(0);
-
+//                die(print_r( $users));  
 		if ($user){
 			$tempo = Format_Date::comparaData($user->getDataSenha());
 
+                        
 			$config = new Config();
 			$config->read(1);
 			if($config->getTrocaSenhaTempo() == cTRUE  && $config->getTempoTrocaSenha() <= $tempo){
@@ -77,7 +87,7 @@ class LoginController extends Zend_Controller_Action{
 				$session = Zend_Registry::get('session');
 				$session->usuario = $user;
 				Zend_Registry::set('session', $session);
-				Log::createLogFile('O usúario ' . $user->getNomeCompleto() . ' acessou o sistema');
+				Log::createLogFile('O usuário ' . $user->getNomeCompleto() . ' acessou o sistema');
 			}
 
 			$br->setBrowserUrl($url);
