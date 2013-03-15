@@ -15,7 +15,10 @@ body {
     padding: 5px;
     background-color: #ffffcc;
     border: dotted #f6a828 1px;
-    height: 32px
+    height: 32px; 
+}
+.header div{
+    float: left;
 }
 
 #conteudo{

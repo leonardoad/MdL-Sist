@@ -15,7 +15,12 @@ class IndexController extends Zend_Controller_Action{
 		$mainMenu->setParams('200');
 
 		// =========== Menu Cadastros ==========
-		// Menu Cadastros
+		// =========== Menu Home ==========
+		$menuItem = new Ui_Element_MenuItem('home', 'Home', 'Index');
+		$menuItem->setVisible(true, '');
+		$mainMenu->addMenuItem($menuItem);
+
+                    // Menu Cadastros
 		$menuItem = new Ui_Element_MenuItem('cadastros', 'Cadastros');
 
 		$mainMenu->addMenuItem($menuItem);
@@ -87,6 +92,7 @@ class IndexController extends Zend_Controller_Action{
 		$menuItem = new Ui_Element_MenuItem('logoff', 'Sair', 'Login/logout');
 		$menuItem->setVisible(true, '');
 		$mainMenu->addMenuItem($menuItem);
+		
 
 		$view = Zend_Registry::get('view');
 
