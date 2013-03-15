@@ -3,17 +3,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-		<link rel="shortcut icon" href="Public/Images/favicon.ico" />
-		<script type="text/javascript">
-			//var cBaseUrl = '/Projetos/Opertur/';
-			eval("base = '{$baseUrl}'");
-			var cBaseUrl = '{$baseUrl}';
-		</script>
+        <link rel="shortcut icon" href="Public/Images/favicon2.ico" />
+
         <title>{$title}</title>
-		{$scripts}
+        <script type="text/javascript">
+            //var cBaseUrl = '/Projetos/Opertur/';
+            eval("base = '{$baseUrl}'");
+            var cBaseUrl = '{$baseUrl}';
+        </script>
+        {$scripts} 
     </head>
     <body >
-    	<div id="alert" style="display: none;"></div>
-    	{$body}
+        <div id="alert" style="display: none;"></div>
+        {$body}
     </body>
 </html>

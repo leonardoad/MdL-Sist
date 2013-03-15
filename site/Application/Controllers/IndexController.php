@@ -1,4 +1,11 @@
 <?php
+/**
+ *  Classe de criação e controle da tela inicial do sistema
+ * 
+ * @author Leonardo Danieli <leonardo.danieli@gmail.com>
+ * @version 1.0
+ * 
+ */
 class IndexController extends Zend_Controller_Action{
 
 	public function indexAction()
@@ -18,9 +25,9 @@ class IndexController extends Zend_Controller_Action{
 //		$menu->setVisible('PROC_CAD_FORNECEDOR', 'ver');
 //		$menuItem->addSubMenu($menu);
 
-		// Cadastro de usuario
+		// Cadastro de Empresas
 //		$menu = new Ui_Element_MenuItem('cadEmpresa', 'Empresas', 'Empresa', 'iframePrincipal');
-//		$menu->setVisible('PROC_CAD_UF', 'ver');
+//		$menu->setVisible('PROC_CAD_EMPRESA', 'ver');
 //		$menuItem->addSubMenu($menu);
 //		// Cadastro de usuario
 //		
@@ -84,7 +91,7 @@ class IndexController extends Zend_Controller_Action{
 		$view = Zend_Registry::get('view');
 
 		$view->assign('menu', $mainMenu->render());
-		$view->assign('title', 'Sistema.');
+		$view->assign('title', 'Mural das Lembrancinhas - Sistema de Vendas');
 		$view->assign('usuarioLogado', Session_Control::getPropertyUserLogado('nomecompleto'));
 
 		$view->assign('scripts', Browser_Control::getScripts());
