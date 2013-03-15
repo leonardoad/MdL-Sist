@@ -29,7 +29,7 @@ class Log extends Db_Table {
 		$column = new Ui_Element_Grid_Column_Text('Descricao', 'descricao', '430');
 		$gridLogs->addColumn($column);
 
-		$column = new Ui_Element_Grid_Column_Text('Usúario', 'usuario');
+		$column = new Ui_Element_Grid_Column_Text('Usuário', 'usuario');
 		$gridLogs->addColumn($column);
 
 		$column = new Ui_Element_Grid_Column_Text('Data/Hora', 'datahora');

@@ -99,7 +99,7 @@ class Db_Table extends Zend_Db_Table {
 	 * por padrão ele não busca o total de linhas da tabela
 	 * @var Bool;
 	 */
-	protected $_readCount = false;
+	protected $_readCount = true;
 	protected $_removeJoin = false;
 
 	public function setTextLog($text){
@@ -564,7 +564,7 @@ class Db_Table extends Zend_Db_Table {
 		$col = $this->getPrimaryName();
 		$class = get_class($this);
 		$item = new $class;
-		$item->columns('count('.$col.')');
+		$item->columns('count('.$col.') as count');
 		$item->_joins = array();
 		$item->_whereSelect = $this->_whereSelect;
 		$count = $item->fetchAll($item->getSelect())->toArray();

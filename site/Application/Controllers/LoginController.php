@@ -69,11 +69,10 @@ class LoginController extends Zend_Controller_Action{
 
 		$post = Zend_Registry::get('post');
 		$users = new Usuario();
-		$users->where('loginuser', $post->user, 'like');
-		$users->where('senha', Format_Crypt::encryptPass($post->senha), 'like');
-		$users->where('ativo', 'S', 'like');
+		$users->where('loginuser', $post->user );
+		$users->where('senha', Format_Crypt::encryptPass($post->senha) );
+		$users->where('ativo', 'S' );
 		$user = $users->readLst()->getItem(0);
-//                die(print_r( $users));  
 		if ($user){
 			$tempo = Format_Date::comparaData($user->getDataSenha());
 
