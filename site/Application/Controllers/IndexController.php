@@ -51,7 +51,11 @@ class IndexController extends Zend_Controller_Action{
 //		$menuItem->addSubMenu($menu);
 //
 		// Cadastro de cidades
-		$menu = new Ui_Element_MenuItem('cadTipoProduto', 'Classificação de Produtos', 'Tipoproduto', 'iframePrincipal');
+		$menu = new Ui_Element_MenuItem('cadCliente', 'Clientes', 'Cliente', 'iframePrincipal');
+		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
+		$menuItem->addSubMenu($menu);
+		// Cadastro de Materia prima
+		$menu = new Ui_Element_MenuItem('cadMateriaprima', 'Materia Prima', 'Materiaprima', 'iframePrincipal');
 		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
 		$menuItem->addSubMenu($menu);
 		// Cadastro de cidades
@@ -60,10 +64,18 @@ class IndexController extends Zend_Controller_Action{
 		$menuItem->addSubMenu($menu);
 //		
 		// Cadastro de bairro
-		$menu = new Ui_Element_MenuItem('cadBanner', 'Banners', 'Album/albuns', 'iframePrincipal');
-		$menu->setVisible('PROC_CAD_BANNER', 'ver');
+		$menu = new Ui_Element_MenuItem('cadOrdem', 'Ordem de Serviço', 'Ordem', 'iframePrincipal');
+		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
 		$menuItem->addSubMenu($menu);
                 
+                $menuItem = new Ui_Element_MenuItem('relatorio', 'Relatórios');
+
+		$mainMenu->addMenuItem($menuItem);
+
+		$menu = new Ui_Element_MenuItem('material', 'Material', 'Ordem/RelMaterial', 'iframePrincipal');
+		$menu->setVisible('PROC_CAD_TROCA_SENHA', 'ver');
+		//$menu->setEvent('click', 'User/trocasenha');
+		$menuItem->addSubMenu($menu);
                 $menuItem = new Ui_Element_MenuItem('seguranca', 'Segurança');
 
 		$mainMenu->addMenuItem($menuItem);

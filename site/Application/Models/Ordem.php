@@ -1,32 +1,36 @@
 <?php
 
 /**
- * Modelo da classe Produto
+ * Modelo da classe Ordem de Serviço
  * @filesource
- * @author 		Leonardo Daneili
- * @copyright 	Ismael Sleifer Web Designer
+ * @author 		Leonardo Daneili <leonardo.danieli@gmail.com>
+ * @copyright 	4Coffee.com.br
  * @package		sistema
  * @subpackage	sistema.apllication.models
- * @version		1.0
+ * @version		1.0 16/03/2013
  */
-class Produto extends Db_Table {
+class Ordem extends Db_Table {
 
-    protected $_name = 'produto';
-    public $_primary = 'id_produto';
-    
-//    protected $_classList = array(array('nome'=>'Permissao', 'campo'=>'id_usuario'));
-
-    
+    protected $_name = 'ordem';
+    public $_primary = 'id_ordem';
     public $_log_ativo = true;
 
-     
+    function Ordem() {
+        $this->ativo = cTRUE;
+    }
 
     public function setDataFromRequest($post) {
-        $this->setTitulo($post->getUnescaped('titulo'));
-        $this->setDescricao($post->getUnescaped('descricao'));
-        $this->setDestaque($post->destaque);
-        $this->setValorVenda($post->valorvenda);
-        $this->setValorCusto($post->valorcusto);
+        $this->setAtivo($post->ativo);
+        $this->setID_Cliente($post->getUnescaped('idcliente'));
+        $this->setDataPedido($post->getUnescaped('datapedido'));
+        $this->setDataEntrega($post->getUnescaped('dataentrega'));
+        $this->setPercentEntrada($post->percententrada);
+        $this->setValEntrada($post->valentrada);
+        $this->setNumVezes($post->numvezes);
+        $this->setTotalCusto($post->totalcusto);
+        $this->setTotalVenda($post->totalvenda);
+        $this->setPercentDesconto($post->percentdesconto);
+        $this->setValDesconto($post->valdesconto);
     }
 
     public function getImagemPrincipal() {

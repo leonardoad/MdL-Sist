@@ -1,4 +1,5 @@
 <?php
+//phpinfo();
 /**
  * Arquivo principal da aplicação
  * Define todos os caminhos onde os arquivos est�o armazenados,
@@ -14,9 +15,12 @@
  * @subpackage		zendframework.system
  * @version			1.0
  */
-error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
+error_reporting(E_ERROR);
+//error_reporting(0);
 
 // BASE eh o caminho apartir da raiz do site(Ex.: na locaweb e o "public_htm", mas o caminho fica sem o "public_html")
+//define('BASE', "");  
+//define('BASE', "desenv/testes/TopChaves/Site");  
 define('BASE', "mdlsist/MdL-Sist");  
 
 // HTTP_HOST eh endereco web do site ex: "http://facebook.com"
@@ -29,7 +33,7 @@ $bar = $operatingSystem == 'WINDOWS' ? '\\' : '/';
 $pathSeparator = $operatingSystem == 'WINDOWS' ? ';' : ':';
 $documentRoot = $operatingSystem == 'WINDOWS' ? str_replace('/', '\\', $_SERVER['DOCUMENT_ROOT']) : $_SERVER['DOCUMENT_ROOT'];
 
-define('RAIZ_DIRETORY', $documentRoot . $bar . BASE . $bar);
+define('RAIZ_DIRETORY', $documentRoot . $bar . (BASE!=''?BASE . $bar:''));
 $applicationName = basename(getcwd()) . $bar;
 if ($operatingSystem == 'WINDOWS') {
     $path = $pathSeparator . RAIZ_DIRETORY . 'Libs';
@@ -82,14 +86,18 @@ if (count($_POST) > 0) {
     $post = $_POST;
 }
 //print'<pre>';
+//die(print_r($array));
 //die(print_r(count($array) . " > (5 + $pos)"));
 
 /* tudo que tiver depois do endereço padrao é parametro. */
-if (count($array) > (5 + $pos)) {
-    for ($i = (5 + $pos); $i < count($array); $i++) {
+//if (count($array) > (5 + $pos)) {
+if ($array[4 + $pos] != NULL) {
+    for ($i = (4 + $pos); $i < count($array); $i++) {
         $post[$array[$i]] = rawurldecode($array[++$i]);
     }
 }
+
+//print'<pre>';die(print_r( $post )  );
 
 Zend_Registry::set('post', new Zend_Filter_Input(NULL, NULL, $post));
 Zend_Registry::set('get', new Zend_Filter_Input(NULL, NULL, $_GET));
@@ -149,7 +157,9 @@ Zend_Registry::set('db', $db);
 //$act = $array[4];
 $controller = $array[$pos+2];
 $act = $array[$pos+3];
-//die($controller.'w');
+//print ("\$controller = \$array[$pos+2]; <br>\$act = \$array[$pos+3];");
+//
+//die($controller.'<br>'.$act);
 
 $session = Zend_Registry::get('session');
 
@@ -160,6 +170,7 @@ if ($controller == null) {
 if ($act == null) {
     $act = 'index';
 }
+
 
 Zend_Registry::set('controller', $controller);
 //  print'<pre>';die(print_r($controller ));
@@ -195,14 +206,13 @@ function setBrowserUrl($ctrl, $array,$pos = 0) {
     }
     $html .="</script>";
 //    print'<pre>';
-//    die(print_r($html));
+//    die(print_r('$html'));
     return $html;
 }
 
 //print'<pre>';die(var_dump( $flag ));
 if ($flag) {
     if (strcasecmp($controller, 'login') != 0) {
-//            print'<pre>';die(var_dump( 'ahan!!!' ));
         if (!isset($session->usuario)) {
             $post = Zend_Registry::get('post');
             if (!isset($post->ajax)) {

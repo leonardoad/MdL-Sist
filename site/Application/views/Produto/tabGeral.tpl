@@ -4,13 +4,18 @@
     <td>{$destaque}</td>
   </tr>
   <tr>
-    <td><label for="nome">Nome:</label></td>
-    <td>{$nome}</td>
+    <td><label for="nome">Titulo:</label></td>
+    <td>{$titulo}</td>
   </tr>
   <tr>
-    <td><label for="id_tipoproduto">Categoria:</label></td>
-    <td>{$id_tipoproduto}</td>
+    <td><label for="nome">Valor Custo:</label></td>
+    <td>{$valorcusto}</td>
   </tr>
+  <tr>
+    <td><label for="nome">Valor Venda:</label></td>
+    <td>{$valorvenda}</td>
+  </tr>
+   
   <tr>
     <td><label for="descricao">Descricao:</label></td>
     <td>{$descricao}</td>

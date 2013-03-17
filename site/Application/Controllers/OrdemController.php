@@ -1,6 +1,6 @@
 <?php
 
-class ProdutoController extends Zend_Controller_Action {
+class OrdemController extends Zend_Controller_Action {
 
     public function init() {
 //        Browser_Control::setScript('js', 'Mask', 'Mask/Mask.js');
@@ -14,11 +14,11 @@ class ProdutoController extends Zend_Controller_Action {
 
     public function indexAction() {
         $form = new Ui_Form();
-        $form->setName('formProduto');
-        $form->setAction('Produto');
+        $form->setName('formOrdem');
+        $form->setAction('Ordem');
 
-        $grid = new Ui_Element_Grid('gridProdutos');
-        $grid->setParams('Produto', 'Produto/listaproduto');
+        $grid = new Ui_Element_Grid('gridOrdens');
+        $grid->setParams('Ordem', 'Ordem/listaordem');
 //		$grid->setOrder('Nome');
 
         $button = new Ui_Element_Grid_Button('btnNovo', 'Inserir');
@@ -33,13 +33,18 @@ class ProdutoController extends Zend_Controller_Action {
         $button->setSendFormFields();
         $grid->addButton($button);
 
-        $column = new Ui_Element_Grid_Column_Check('ID', 'id_produto', '30', 'center');
+        $column = new Ui_Element_Grid_Column_Check('ID', 'id_ordem', '30', 'center');
         $grid->addColumn($column);
 
-        $column = new Ui_Element_Grid_Column_Text('Titulo', 'titulo', '150');
+        $column = new Ui_Element_Grid_Column_Text('Cliente', 'nomecliente', '150');
+        $grid->addColumn($column);
+        $column = new Ui_Element_Grid_Column_Text('Email', 'emailcliente', '150');
         $grid->addColumn($column);
 //
-        $column = new Ui_Element_Grid_Column_Text('Descricao', 'descricao', '400');
+        $column = new Ui_Element_Grid_Column_Text('Pedido', 'datapedido', '70');
+        $grid->addColumn($column);
+//
+        $column = new Ui_Element_Grid_Column_Text('Entrega', 'dataentrega', '70');
         $grid->addColumn($column);
         
         $column = new Ui_Element_Grid_Column_Text('Valor Venda', 'valorvenda', '100');
@@ -49,8 +54,8 @@ class ProdutoController extends Zend_Controller_Action {
         $grid->addColumn($column);
 
 
-        $column = new Ui_Element_Grid_Column_Image('Destaque', 'destaque', '30', 'center');
-        $column->setCondicao('S', 'destaque');
+        $column = new Ui_Element_Grid_Column_Image('Ativo', 'ativo', '30', 'center');
+        $column->setCondicao('S', 'ativo');
         $column->setImages(PATH_IMAGES . 'Buttons/Ok.png', PATH_IMAGES . 'Buttons/Cancelar.png');
         $grid->addColumn($column);
 
@@ -59,7 +64,7 @@ class ProdutoController extends Zend_Controller_Action {
         $view = Zend_Registry::get('view');
 
         $view->assign('scripts', Browser_Control::getScripts());
-        $view->assign('body', $form->displayTpl($view, 'Produto/index.tpl'));
+        $view->assign('body', $form->displayTpl($view, 'Ordem/index.tpl'));
         $view->output('index.tpl');
     }
 
@@ -69,52 +74,82 @@ class ProdutoController extends Zend_Controller_Action {
         $view = Zend_Registry::get('view');
 
         $form = new Ui_Form();
-        $form->setAction('Produto');
-        $form->setName('formProdutoEdit');
+        $form->setAction('Ordem');
+        $form->setName('formOrdemEdit');
 
-        $mainTab = new Ui_Element_TabMain('editProdutoTab');
+        $mainTab = new Ui_Element_TabMain('editOrdemTab');
 
         $tab = new Ui_Element_Tab('tabGeral');
         $tab->setTitle('Geral');
-        $tab->setTemplate('Produto/tabGeral.tpl');
+        $tab->setTemplate('Ordem/tabGeral.tpl');
 
-        $element = new Ui_Element_Checkbox('destaque');
+        $element = new Ui_Element_Checkbox('ativo');
         $element->setCheckedValue(cTRUE);
         $element->setUncheckedValue(cFALSE);
         $tab->addElement($element);
 
-        $element = new Ui_Element_Text('titulo');
+        $element = new Ui_Element_Text('nomecliente');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
         $element->setAttrib('size', '50');
         $tab->addElement($element);
 
         
-        $element = new Ui_Element_Text('valorcusto');
+        $element = new Ui_Element_Date('datapedido');
+        $element->setAttrib('obrig', 'obrig');
+        $element->setRequired();
+        $element->setValue(date('d/m/Y'));
+        $element->setAttrib('size', '10');
+        $tab->addElement($element);
+        
+        $element = new Ui_Element_Date('dataentrega');
+        $element->setAttrib('obrig', 'obrig');
+        $element->setRequired();
+        $element->setAttrib('size', '10');
+        $tab->addElement($element);
+        
+        $element = new Ui_Element_Text('totalcusto');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
         $element->setAttrib('size', '15');
         $tab->addElement($element);
         
-        $element = new Ui_Element_Text('valorvenda');
+        $element = new Ui_Element_Text('totalvenda');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
         $element->setAttrib('size', '15');
         $tab->addElement($element);
-
-        $element = new Ui_Element_Textarea('descricao');
+        
+        $element = new Ui_Element_Text('percententrada');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
-        $element->setAttrib('rows', '5');
-        $element->setAttrib('cols', '50');
+        $element->setAttrib('size', '3');
         $tab->addElement($element);
-
+        
+        $element = new Ui_Element_Text('valorentrada');
+        $element->setAttrib('obrig', 'obrig');
+        $element->setRequired();
+        $element->setAttrib('size', '15');
+        $tab->addElement($element);
+        
+        $element = new Ui_Element_Text('percentdesconto');
+        $element->setAttrib('obrig', 'obrig');
+        $element->setRequired();
+        $element->setAttrib('size', '15');
+        $tab->addElement($element);
+        
+        $element = new Ui_Element_Text('valordesconto');
+        $element->setAttrib('obrig', 'obrig');
+        $element->setRequired();
+        $element->setAttrib('size', '15');
+        $tab->addElement($element);
+ 
         $mainTab->addTab($tab);
 
         // Logs
         $tab = new Ui_Element_Tab('tabImagens');
         $tab->setTitle('Imagens');
-        $tab->setTemplate('Produto/tabImagens.tpl');
+        $tab->setTemplate('Ordem/tabImagens.tpl');
 
         
          $element = new Ui_Element_Upload('upload');
@@ -131,10 +166,10 @@ class ProdutoController extends Zend_Controller_Action {
         $form->addElement($mainTab);
 
         Session_Control::setDataSession('album', $post->id);
-        $obj = new Produto();
+        $obj = new Ordem();
         if (isset($post->id)) {
             $obj->read($post->id);
-            $obj->setInstance('produtoEdit');
+            $obj->setInstance('ordemEdit');
             Session_Control::setDataSession('albumEdit',$post->id );
         }
         $form->setDataForm($obj);
@@ -156,7 +191,7 @@ class ProdutoController extends Zend_Controller_Action {
 
 
 
-        $w = new Ui_Window('EditProduto', 'Edição de produto', $form->displayTpl($view, 'Produto/edit.tpl'), true);
+        $w = new Ui_Window('EditOrdem', 'Edição de ordem', $form->displayTpl($view, 'Ordem/edit.tpl'), true);
         $w->setDimension('700', '670');
         $w->setCloseOnEscape(true);
         $br = new Browser_Control();
@@ -235,7 +270,7 @@ class ProdutoController extends Zend_Controller_Action {
     }
 
     public function btnsalvarclickAction() {
-        $form = Session_Control::getDataSession('formProdutoEdit');
+        $form = Session_Control::getDataSession('formOrdemEdit');
 
         $valid = $form->processAjax($_POST);
 
@@ -247,44 +282,44 @@ class ProdutoController extends Zend_Controller_Action {
         }
 
         $post = Zend_Registry::get('post');
-        $obj = new Produto();
+        $obj = new Ordem();
         if (isset($post->id)) {
             $obj->read($post->id);
         }
         $obj->setDataFromRequest($post);
         $obj->save();
 
-        $br->setRemoveWindow('EditProduto');
-        $br->setUpdateGrid('gridProdutos');
+        $br->setRemoveWindow('EditOrdem');
+        $br->setUpdateGrid('gridOrdens');
         $br->send();
 
-        Session_Control::setDataSession('formProdutoEdit', '');
+        Session_Control::setDataSession('formOrdemEdit', '');
     }
 
     public function btnexcluirclickAction() {
-        Grid_Control::deleteDataGrid('Produto', '', 'gridProduto');
+        Grid_Control::deleteDataGrid('Ordem', '', 'gridOrdem');
     }
 
     public function btncancelarclickAction() {
         $br = new Browser_Control;
-        $br->setRemoveWindow('EditProduto');
+        $br->setRemoveWindow('EditOrdem');
         $br->send();
     }
 
-    public function gridprodutosdblclickAction() {
+    public function gridOrdensdblclickAction() {
         $this->edit();
     }
 
     public function listaimagensAction() {
-        $Produto = Session_Control::getDataSession('produtoEdit');
+        $Ordem = Session_Control::getDataSession('ordemEdit');
         $arquivos = new Arquivo();
-        $arquivos->where('id_owner', $Produto->getID());
+        $arquivos->where('id_owner', $Ordem->getID());
 
         Grid_Control::setDataGrid($arquivos);
     }
 
-    public function listaprodutoAction() {
-        $obj = new Produto();
+    public function listaordemAction() {
+        $obj = new Ordem();
         Grid_Control::setDataGrid($obj);
     }
 
