@@ -11,7 +11,7 @@
 class Cliente extends Db_Table {
 
     protected $_name = 'cliente';
-    public $_primary = 'id_cliente ';
+    public $_primary = 'id_cliente';
     public $_log_ativo = true;
 
     public function setDataFromRequest($post) {
@@ -21,11 +21,11 @@ class Cliente extends Db_Table {
         $this->setFone2($post->getUnescaped('fone2'));
         $this->setFone3($post->getUnescaped('fone3'));
         $this->setLogradouro($post->getUnescaped('logradouro'));
-        $this->setNumeo($post->getUnescaped('numero'));
+        $this->setNumero($post->getUnescaped('numero'));
         $this->setComplemento($post->getUnescaped('complemento'));
         $this->setBairro($post->getUnescaped('bairro'));
         $this->setCidade($post->getUnescaped('cidade'));
-        $this->setEstado($post->getUnescaped('estado'));
+        $this->setUf($post->getUnescaped('uf'));
         $this->setCep($post->getUnescaped('cep'));
     }
 

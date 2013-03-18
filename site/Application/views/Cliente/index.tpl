@@ -1,1 +1,3 @@
+{$filtros}
 {$gridCliente}
+{$btnSelecionar}

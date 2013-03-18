@@ -62,7 +62,7 @@ class Zend_View_Helper_FormTextMask extends Zend_View_Helper_FormElement
         $mask = '"'.$attribs['mask'].'"';
         $autoTab = $attribs['autoTab'];
         $defaultValue = '"'.$attribs['defaultValue'].'"';
-        $reverse = '"'.$attribs['reverse'].'"';
+        $reverse = $attribs['reverse'];
 
         unset($attribs['mask']);
         unset($attribs['autoTab']);
@@ -83,7 +83,7 @@ class Zend_View_Helper_FormTextMask extends Zend_View_Helper_FormElement
         	$param .= $sep.'"defaultValue":'.$defaultValue;
         	$sep = ', ';
         }
-        if($reverse){
+        if($reverse==true){
         	$param .= $sep.'"type":"reverse"';
         	$sep = ', ';
         }

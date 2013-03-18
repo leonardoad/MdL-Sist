@@ -7,9 +7,9 @@ class OrdemController extends Zend_Controller_Action {
 
         Browser_Control::setScript('js', 'Easydrag', 'easydrag.js');
 
-        Browser_Control::setScript('js', 'Upload', 'Upload/Upload.js');
-        Browser_Control::setScript('js', 'SwfUpload', 'Upload/Swfobject.js');
-        Browser_Control::setScript('css', 'Upload', 'Upload/Upload.css');
+//        Browser_Control::setScript('js', 'Upload', 'Upload/Upload.js');
+//        Browser_Control::setScript('js', 'SwfUpload', 'Upload/Swfobject.js');
+//        Browser_Control::setScript('css', 'Upload', 'Upload/Upload.css');
     }
 
     public function indexAction() {
@@ -89,19 +89,19 @@ class OrdemController extends Zend_Controller_Action {
         $element->setUncheckedValue(cFALSE);
         $tab->addElement($element);
 
-        $element = new Ui_Element_Hidden('idcliente');
+        $element = new Ui_Element_Hidden('id_cliente');
         $element->setRequired();
         $tab->addElement($element);
 
         $element = new Ui_Element_Text('nomecliente');
-//        $element->setAttrib('obrig', 'obrig');
+        $element->setAttrib('obrig', 'obrig');
         $element->setReadOnly(TRUE);
         $element->setRequired();
         $element->setAttrib('size', '35');
         $tab->addElement($element);
 
         $element = new Ui_Element_Btn('btnCliente');
-        $element->setDisplay('Clientes', PATH_IMAGES . 'Buttons/Clientes.png');
+        $element->setDisplay('Clientes', PATH_IMAGES . 'Buttons/Clientes.png'); 
         $tab->addElement($element);
 
 
@@ -251,7 +251,11 @@ class OrdemController extends Zend_Controller_Action {
     public function btnnovoclickAction() {
         $this->edit();
     }
+    public function btnclienteclickAction() {
+        $this->redirect('Cliente/selcliente');
+    }
 
+    
     public function btnsalvarclickAction() {
         $form = Session_Control::getDataSession('formOrdemEdit');
 
@@ -292,7 +296,23 @@ class OrdemController extends Zend_Controller_Action {
     public function gridOrdensdblclickAction() {
         $this->edit();
     }
-
+//    public function okselclienteAction() {
+//        $post = Zend_Registry::get('post');
+//        $br = new Browser_Control();
+//        die(print_r($post ));
+//        if ($post->id_produto > 0) {
+//            $lProduto = new Produto();
+//            $lProduto->read($post->id_produto);
+//
+//
+//            $br->addFieldValue('valorvenda', $lProduto->getValorVenda());
+//            $br->addFieldValue('valorcusto', $lProduto->getValorCusto());
+//            $br->addFieldValue('valortotal', $lProduto->getValorVenda() * $post->quantidade);
+//            $br->setDataForm('formOrdemProdutoEdit');
+//        }
+//        $br->send();
+//    }
+    
     public function listaordemAction() {
         $obj = new Ordem();
         Grid_Control::setDataGrid($obj);

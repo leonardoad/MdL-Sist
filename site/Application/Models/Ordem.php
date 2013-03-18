@@ -38,7 +38,7 @@ class Ordem extends Db_Table {
 
     public function setDataFromRequest($post) {
         $this->setAtivo($post->ativo);
-        $this->setID_Cliente($post->getUnescaped('idcliente'));
+        $this->setID_Cliente($post->getUnescaped('id_cliente'));
         $this->setDataPedido($post->getUnescaped('datapedido'));
         $this->setDataEntrega($post->getUnescaped('dataentrega'));
         $this->setPercentEntrada($post->percententrada);

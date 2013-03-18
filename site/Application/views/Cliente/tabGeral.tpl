@@ -1,8 +1,8 @@
 <table>
     <tr>
         <td>&nbsp;</td>
-        <td>Matriz ?:</td>
-        <td >{$ativo}</td>
+        <td>&nbsp;</td>
+        <td>{$ativo} Ativo</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
@@ -17,17 +17,17 @@
     <tr>
         <td>&nbsp;</td>
         <td><label for="fone">Telefone:</label></td>
-        <td >{$fone}  </td>
+        <td >{$fone}  Ex:(99) 9999-9999</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td><label for="fone2">Telefone 2:</label></td>
-        <td >{$fone2}  </td>
+        <td >{$fone2}  Ex:(99) 9999-9999</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td><label for="fone3">Telefone 3:</label></td>
-        <td >{$fone3}  </td>
+        <td >{$fone3}  Ex:(99) 9999-9999</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
@@ -42,12 +42,12 @@
     <tr>
         <td>&nbsp;</td>
         <td><label for="cidade">Cidade:</label></td>
-        <td >{$cidade}</td>
+        <td >{$cidade} Uf:{$uf}</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td><label for="bairro">Bairro:</label></td>
-        <td >{$bairro} Uf:{$uf}</td>
+        <td >{$bairro} </td>
     </tr>
     <tr>
         <td>&nbsp;</td>
