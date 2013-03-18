@@ -191,7 +191,7 @@ class ClienteController extends Zend_Controller_Action {
             $salvar->setAttrib('params', 'id=' . $post->id);
         }
         $salvar->setAttrib('sendFormFields', '1');
-        $salvar->setAttrib('validaObrig', '1');
+//        $salvar->setAttrib('validaObrig', '1');
         $form->addElement($salvar);
 
         $cancelar = new Ui_Element_Btn('btnCancelar');
@@ -346,9 +346,20 @@ class ClienteController extends Zend_Controller_Action {
 
         $grid = new Ui_Element_Grid('gridCliente');
         $grid->setParams('Cliente', 'Cliente/listaCliente');
+        $grid->setDimension('645', '150');
         $grid->setOrder('nome');
 
+        $button = new Ui_Element_Grid_Button('btnNovo', 'Inserir');
+        $button->setImg('Buttons/Novo.png');
+        $button->setVisible('CAD_CLIENTE', 'inserir');
+        $grid->addButton($button);
 
+        $button = new Ui_Element_Grid_Button('btnExcluir', 'Excluir');
+        $button->setImg('Buttons/Cancelar.png');
+        $button->setAttribs('msg = "Excluir o item selecionado ?"');
+        $button->setVisible('CAD_CLIENTE', 'excluir');
+        $button->setSendFormFields();
+        $grid->addButton($button);
 
         $column = new Ui_Element_Grid_Column_Check('ID', 'id_cliente', '30', 'center');
         $grid->addColumn($column);
