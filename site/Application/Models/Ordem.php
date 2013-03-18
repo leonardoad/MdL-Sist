@@ -14,15 +14,20 @@ class Ordem extends Db_Table {
     protected $_name = 'ordem';
     public $_primary = 'id_ordem';
     public $_log_ativo = true;
-    public $a_ativo = cTRUE;
-    public $a_percentdesconto = 0;
-    public $a_valdesconto = 0;
-    public $a_percententrada = 0;
-    public $a_valentrada = 0;
- 
+
+    function __construct() {
+        parent::__construct();
+
+        $this->setDataPedido(date('d/m/Y'));
+        $this->a_ativo = cTRUE;
+        $this->a_percentdesconto = 0;
+        $this->a_valdesconto = 0;
+        $this->a_percententrada = 0;
+        $this->a_valentrada = 0;
+    }
 
     public function getOrdemProdutoLst() {
-        if(!$this->OrdemProdutoLst){
+        if (!$this->OrdemProdutoLst) {
             $this->OrdemProdutoLst = new Ordemproduto();
         }
         return $this->OrdemProdutoLst;

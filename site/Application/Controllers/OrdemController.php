@@ -106,7 +106,6 @@ class OrdemController extends Zend_Controller_Action {
 
 
         $element = new Ui_Element_Date('datapedido');
-//        $element = new Ui_Element_Text('datapedido');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
         $element->setValue(date('d/m/Y'));
@@ -114,7 +113,6 @@ class OrdemController extends Zend_Controller_Action {
         $tab->addElement($element);
 
         $element = new Ui_Element_Date('dataentrega');
-//        $element = new Ui_Element_Text('dataentrega');
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
         $element->setAttrib('size', '10');
@@ -123,7 +121,7 @@ class OrdemController extends Zend_Controller_Action {
 
         $mainTab->addTab($tab);
 
-        // Logs
+        // ABA Produtos
         $tab = new Ui_Element_Tab('tabProdutos');
         $tab->setTitle('Produtos');
         $tab->setTemplate('Ordem/tabProdutos.tpl');
@@ -178,7 +176,6 @@ class OrdemController extends Zend_Controller_Action {
         $grid->setParams('Produtos', 'Ordem/listaproduto');
         $grid->setController('Ordem');
         $grid->setDimension('645', '150');
-//		$grid->setOrder('Nome');
 
         $button = new Ui_Element_Grid_Button('btnNovoProduto', 'Inserir');
         $button->setImg('Buttons/Novo.png');
@@ -221,7 +218,7 @@ class OrdemController extends Zend_Controller_Action {
             $obj->read($post->id);
         }
         $obj->setInstance('ordemEdit');
-//        $form->setDataForm($obj);
+        $form->setDataForm($obj);
 
         $salvar = new Ui_Element_Btn('btnSalvar');
         $salvar->setDisplay('Salvar', PATH_IMAGES . 'Buttons/Ok.png');

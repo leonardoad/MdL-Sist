@@ -16,7 +16,7 @@ class Ui_Element_Date extends Zend_Form_Element_Text{
 		Browser_Control::setScript('js', 'Date', 'Date/Date.js');
 		Browser_Control::setScript('js', 'Mask', 'Mask/Mask.js');
 		Browser_Control::setScript('css', 'Date', 'Date/Date.css');
-                $this->buttonImage = '/'.BASE . '/Libs/Images/Calendarios/CalendarAdd24x24.png';
+                $this->buttonImage = PATH_IMAGES.'Calendarios/CalendarAdd24x24.png';
 	}
 	public function setAlt($alt){
 		$this->buttonText = $alt;

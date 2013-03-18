@@ -16,6 +16,12 @@ class Ordemproduto extends Db_Table {
     public $_log_ativo = true;
     
     
+    function __construct() {
+        parent::__construct();
+
+        $this->a_quantidade = '1'   ;
+    }
+    
     public function getProduto(){
         if(!$this->produto){
             $this->produto = new Produto();
