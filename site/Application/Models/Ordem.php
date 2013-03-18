@@ -14,27 +14,23 @@ class Ordem extends Db_Table {
     protected $_name = 'ordem';
     public $_primary = 'id_ordem';
     public $_log_ativo = true;
-    
-    function Ordem() {
-        $this->a_ativo = cTRUE;
-        $this->a_percentdesconto = 0;
-        $this->a_valdesconto = 0;
-        $this->a_percententrada= 0;
-        $this->a_valentrada= 0;
-        $this->a_datapedido = date('d/m/Y');
-        
-        $this->OrdemProdutoLst = new Ordemproduto();
-    }
-    
-    public function getOrdemProdutoLst(){
+    public $a_ativo = cTRUE;
+    public $a_percentdesconto = 0;
+    public $a_valdesconto = 0;
+    public $a_percententrada = 0;
+    public $a_valentrada = 0;
+ 
+
+    public function getOrdemProdutoLst() {
+        if(!$this->OrdemProdutoLst){
+            $this->OrdemProdutoLst = new Ordemproduto();
+        }
         return $this->OrdemProdutoLst;
     }
-    public function getTotalVendaComDesconto(){
+
+    public function getTotalVendaComDesconto() {
         return $this->a_totalvenda - $this->a_valdesconto;
     }
-    
-    
-    
 
     public function setDataFromRequest($post) {
         $this->setAtivo($post->ativo);
@@ -50,5 +46,4 @@ class Ordem extends Db_Table {
         $this->setValDesconto($post->valdesconto);
     }
 
-    
 }

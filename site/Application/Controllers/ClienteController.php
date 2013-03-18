@@ -110,6 +110,7 @@ class ClienteController extends Zend_Controller_Action {
 
         $element = new Ui_Element_Checkbox('ativo');
         $element->setCheckedValue(cTRUE);
+        $element->setValue(cTRUE);
         $element->setUncheckedValue(cFALSE);
         $tabGeral->addElement($element);
 
@@ -136,15 +137,11 @@ class ClienteController extends Zend_Controller_Action {
         $element->setMask('(99) 9999-9999');
         $tabGeral->addElement($element);
 
-        $element = new Ui_Element_Text('logradouro');
-        $element->setAttrib('obrig', 'obrig');
-        $element->setRequired();
+        $element = new Ui_Element_Text('logradouro');  
         $element->setAttrib('size', '20');
         $tabGeral->addElement($element);
 
-        $element = new Ui_Element_Text('cidade');
-        $element->setAttrib('obrig', 'obrig');
-        $element->setRequired();
+        $element = new Ui_Element_Text('cidade');  
         $element->setAttrib('size', '20');
         $tabGeral->addElement($element);
 

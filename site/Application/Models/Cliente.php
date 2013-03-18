@@ -13,8 +13,16 @@ class Cliente extends Db_Table {
     protected $_name = 'cliente';
     public $_primary = 'id_cliente';
     public $_log_ativo = true;
+    
+    public $a_ativo = 'S';
+
+//    public function Cliente() {
+//        $this->setAtivo('S');
+//    }
 
     public function setDataFromRequest($post) {
+
+        $this->setAtivo($post->ativo);
         $this->setNome($post->getUnescaped('nome'));
         $this->setEmail($post->getUnescaped('email'));
         $this->setFone($post->getUnescaped('fone'));
