@@ -10,6 +10,42 @@ class ClienteController extends Zend_Controller_Action {
         $form = new Ui_Form();
         $form->setName('formCliente');
         $form->setAction('Cliente');
+        
+         $accordion = new Ui_Element_Accordion('filtros');
+
+        $section = new Ui_Element_Section('section1');
+        $section->setTitle('Filtros');
+        $section->setTemplate('Cliente/filtros.tpl');
+
+        $idGrid = 'gridCliente';
+        $element = new Ui_Element_Checkbox('ativoFiltro');
+        $element->setAttrib('grid', $idGrid);
+        $element->setChecked(cTRUE);
+        $element->setCheckedValue(cTRUE);
+        $element->setUncheckedValue(cFALSE);
+        $section->addElement($element);
+
+        $element = new Ui_Element_Text('nomeFiltro');
+        $element->setAttrib('grid', $idGrid);
+        $section->addElement($element);
+
+        $element = new Ui_Element_Text('emailFiltro');
+        $element->setAttrib('grid', $idGrid);
+        $section->addElement($element);
+
+        $element = new Ui_Element_Btn('btnFiltrar');
+        $element->setDisplay('Filtrar', PATH_IMAGES . 'Buttons/Find.png');
+        $element->setAttrib('event', '');
+        $element->setAttrib('updateGrid', $idGrid);
+        $section->addElement($element);
+
+        $element = new Ui_Element_Btn('btnLimparFiltros');
+        $element->setDisplay('Limpar', PATH_IMAGES . 'Buttons/Clear.png');
+        $section->addElement($element);
+        $accordion->addSection($section);
+
+        $form->addElement($accordion);
+
 
         $grid = new Ui_Element_Grid('gridCliente');
         $grid->setParams('Cliente', 'Cliente/listaCliente');
@@ -43,6 +79,11 @@ class ClienteController extends Zend_Controller_Action {
         $grid->addColumn($column);
 
         $column = new Ui_Element_Grid_Column_Text('Tel3', 'fone3', '150');
+        $grid->addColumn($column);
+        
+        $column = new Ui_Element_Grid_Column_Image('Ativo', 'ativo', '30', 'center');
+        $column->setCondicao('S', 'ativo');
+        $column->setImages(PATH_IMAGES . 'Buttons/Ok.png', PATH_IMAGES . 'Buttons/Cancelar.png');
         $grid->addColumn($column);
 
         $form->addElement($grid);

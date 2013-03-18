@@ -1,10 +1,10 @@
 <?php
 
 define('APPLICATION_NAME', basename(getcwd()));
-define('PATH_SCRIPTS', '/'.BASE.'/Libs/Scripts/');
-define('PATH_IMAGES', '/'.BASE.'/Libs/Images/');
-define('PATH_PUBLIC', '/'.BASE.'/'.APPLICATION_NAME.'/Public/');
-define('BASE_URL', '/'.BASE.'/'.APPLICATION_NAME.'/');
+define('PATH_SCRIPTS', '/'.(BASE!=''?BASE.'/':'').'Libs/Scripts/');
+define('PATH_IMAGES', '/'.(BASE!=''?BASE.'/':'').'Libs/Images/');
+define('PATH_PUBLIC', '/'.(BASE!=''?BASE.'/':'').APPLICATION_NAME.'/Public/');
+define('BASE_URL', '/'.(BASE!=''?BASE.'/':'').APPLICATION_NAME.'/');
 
 define('cTRUE', 'S');
 define('cFALSE', 'N');
