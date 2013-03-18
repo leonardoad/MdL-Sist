@@ -14,10 +14,27 @@ class Ordem extends Db_Table {
     protected $_name = 'ordem';
     public $_primary = 'id_ordem';
     public $_log_ativo = true;
-
+    
     function Ordem() {
-        $this->ativo = cTRUE;
+        $this->a_ativo = cTRUE;
+        $this->a_percentdesconto = 0;
+        $this->a_valdesconto = 0;
+        $this->a_percententrada= 0;
+        $this->a_valentrada= 0;
+        $this->a_datapedido = date('d/m/Y');
+        
+        $this->OrdemProdutoLst = new Ordemproduto();
     }
+    
+    public function getOrdemProdutoLst(){
+        return $this->OrdemProdutoLst;
+    }
+    public function getTotalVendaComDesconto(){
+        return $this->a_totalvenda - $this->a_valdesconto;
+    }
+    
+    
+    
 
     public function setDataFromRequest($post) {
         $this->setAtivo($post->ativo);
@@ -33,61 +50,5 @@ class Ordem extends Db_Table {
         $this->setValDesconto($post->valdesconto);
     }
 
-    public function getImagemPrincipal() {
-
-        $lArquivo = new Arquivo();
-        return $lArquivo->getImagens($this->getID());
-    }
-    public function getImagens() {
-
-        $lArquivo = new Arquivo();
-        return $lArquivo->getImagens($this->getID());
-    }
-
-    public function getListaProdutos($pView, $limit = 3) {
-
-
-        $this->limit(1, $limit);
-        $this->where('destaque','S');
-        $this->readLst();
-        $lHtml = '<table class="listaProdutos">';
-        for ($i = 0; $i < $this->countItens(); $i++) {
-            $lItem = $this->getItem($i);
-            if ($lItem != null) {
-
-                $pView->assign('id_produto', $lItem->getID());
-                $pView->assign('foto',  Arquivo::getImagens($lItem->getID()));
-                $pView->assign('titulo', $lItem->getNome());
-                $pView->assign('descricao', $lItem->getDescricao());
-
-                $lHtml .= $pView->fetch('Produto/web_linha_capa.tpl');
-            }
-        }
-
-        $lHtml .= '</table>';
-        return $lHtml;
-    }
-
-    public function getTabelaProdutos($pView) {
-
-
-        $this->readLst();   
-        $lHtml .='<div class="tabelaProdutos">';
-        for ($i = 0; $i < $this->countItens(); $i++) {
-            $lItem = $this->getItem($i);
-
-            $pView->assign('id_produto', $lItem->getID());
-            $pView->assign('foto', Arquivo::getImagens($lItem->getID()));
-            $pView->assign('titulo', $lItem->getNome());
-            $pView->assign('descricao', $lItem->getDescricao());
-
-            $lHtml .='<div id="divItem">';
-            $lHtml .= $pView->fetch('Produto/web_celula_produto.tpl');
-            $lHtml .='</div>';
-        }
-        $lHtml .='</div>';
-
-        return $lHtml;
-    }
-
+    
 }

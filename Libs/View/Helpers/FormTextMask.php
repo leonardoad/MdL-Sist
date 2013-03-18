@@ -83,8 +83,8 @@ class Zend_View_Helper_FormTextMask extends Zend_View_Helper_FormElement
         	$param .= $sep.'"defaultValue":'.$defaultValue;
         	$sep = ', ';
         }
-        if(!empty($reverse)){
-        	$param .= $sep.'"type":'.$reverse;
+        if($reverse){
+        	$param .= $sep.'"type":"reverse"';
         	$sep = ', ';
         }
 

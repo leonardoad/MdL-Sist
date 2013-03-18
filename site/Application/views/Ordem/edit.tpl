@@ -1,6 +1,6 @@
 <table width="578">
   <tr>
-    <td   colspan="3" valign="top">{$editMateriaprimaTab}</td>
+    <td   colspan="3" valign="top">{$editOrdemTab}</td>
   </tr>
   <tr>
   	<td width="204">&nbsp;</td>

@@ -104,6 +104,14 @@ class Grid_Control{
 		}
 	}
 
+        /**
+         *  preenche o grid
+         * 
+         * @param obj|string $model lista que vai preencher o grid | classe que vai preencher o grid
+         * @param bool $return se quer que o json do grid seja retornado ou não.
+         * @param bool $colocaOID se é para colocar o <code>id</code> nas linhas do grid. essa opção serve para grid em que se quer que ele envie a linha ou o id no dblClick
+         * @return type
+         */
 	public static function setDataGrid($model, $return = false, $colocaOID = true){
 		$post = Zend_Registry::get('post');
 
@@ -117,15 +125,20 @@ class Grid_Control{
 			}
 		}else if(is_string($model)){
 			$obj = new $model;
+			if(!$colocaOID)
+                            $id = $obj->getPrimaryName();
 		}
-		$id = $obj->getPrimaryName();
-		$obj->setReadCount();
-		$obj->limit($post->page, $post->rp);
-		if($post->sortname != ''){
-			$obj->sortOrder($post->sortname ,	$post->sortorder);
-		}
-		$obj->readLst();
-		$dataGrid = Grid_Control::setDataGridJson($columns, $post->page, $obj->getTotalItens(), $obj, $id, $return);
+//                if($obj->countItens()!=0){
+                    $obj->setReadCount();
+                    $obj->limit($post->page, $post->rp);
+                    if($post->sortname != ''){
+                            $obj->sortOrder($post->sortname ,	$post->sortorder);
+                    }
+                    $obj->readLst();
+//                }
+                $totalItens = $obj->getTotalItens()>0?$obj->getTotalItens():$obj->countItens();
+                
+		$dataGrid = Grid_Control::setDataGridJson($columns, $post->page,$totalItens , $obj, $id, $return);
 
 		if($return){
 			return $dataGrid;
@@ -135,14 +148,16 @@ class Grid_Control{
 	public static function setDataGridFromMemory(){
 
 	}
+        
 	/**
-	 * Deleta uma linha do grid direto no banco de dados.
+         * Esse metodo pode executar duas ações. deletar do DB os iten ou Marcar pala deleção.
+         *
 	 * Para atualizar mais de um grid passar o parametro $idGrid como um array com os ids dos grid, caso for apenas um grid pode
 	 * ser passado apenas uma String como id.
 	 *
-	 * @param String $Instance
-	 * @param String $NomeLista
-	 * @param String or Array $idGrid
+	 * @param String $Instance Nome da instancia da classe de lista do grid (para marcar para deleção)| Classe de lista do grid (para deletar os itens do DB)
+	 * @param String $NomeLista Para casos em que a lista a ser marcada para deleção está dentro do Objeto passado no parametro <code>$Instance</code>
+	 * @param String|Array $idGrid id do grir a ser atualizado
 	 */
 	public static function deleteDataGrid($instance, $nomeLista, $idGrid = '') {
 		$post = Zend_Registry::get('post');
@@ -156,6 +171,7 @@ class Grid_Control{
 			}
 			for ($i = 0; $i < $post->rp; $i++) {
 				$chk = 'gridChk_' . $i;
+//                                die(print_r( $post->$chk ));
 				if ($post->$chk != '') {
 					$item = $list->getItem($post->$chk);
 					$item->setDeleted();

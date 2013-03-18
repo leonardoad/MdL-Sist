@@ -177,7 +177,7 @@ class PermissaoController extends Zend_Controller_Action{
 			$item = $user->permissoesLst[$post->id];
 
 			if($item->getGrupo() == 'S'){
-				$br->setAlert('Permissões','Permissões do grupo não podem ser editadas. <br />Para autorizar ou negar a permissão, insira ela no usúario.', 380, 140);
+				$br->setAlert('Permissões','Permissões do grupo não podem ser editadas. <br />Para autorizar ou negar a permissão, insira ela no usuário.', 380, 140);
 				$br->send();
 				exit;
 			}

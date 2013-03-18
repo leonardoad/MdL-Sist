@@ -14,5 +14,27 @@ class Ordemproduto extends Db_Table {
     protected $_name = 'ordemproduto';
     public $_primary = 'id_ordemproduto';
     public $_log_ativo = true;
+    
+    
+    public function getProduto(){
+        if(!$this->produto){
+            $this->produto = new Produto();
+            return $this->produto->read($this->getID_Produto());
+        }
+        return $this->produto;
+        
+    }
+    public function getTitulo(){
+        
+        return $this->getProduto()->getTitulo();
+    }
+
+        public function setDataFromRequest($post) {
+        $this->setQuantidade($post->quantidade);
+        $this->setID_Produto($post->id_produto);
+        $this->setValorCusto($post->valorcusto);
+        $this->setValorVenda($post->valorvenda);
+        $this->setValorTotal($post->valortotal);
+    }
 
 }

@@ -53,7 +53,7 @@ class UsuarioController extends Zend_Controller_Action{
 
 		$grid = new Ui_Element_Grid($idGrid);
 		if($tipo == 'user'){
-			$grid->setParams('Usúarios', 'listaUsers');
+			$grid->setParams('Usuários', 'listaUsers');
 		}else{
 
 			$grid->setParams('Grupos', 'listaGrupos');
