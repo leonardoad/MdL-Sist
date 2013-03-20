@@ -83,7 +83,7 @@ class Usuario extends Db_Table {
 
 		foreach($perGrupo as $key){
 			$key->setTipo('permissao');
-			$key->setOwner($idUser);
+//			$key->setOwner($idUser);
 			$key->setGrupo('S');
 			$key->setState('');
 			$permissoes[$key->getNome()] = $key;

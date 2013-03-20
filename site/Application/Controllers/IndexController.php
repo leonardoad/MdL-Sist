@@ -19,6 +19,10 @@ class IndexController extends Zend_Controller_Action{
 		$menuItem = new Ui_Element_MenuItem('home', 'Home', 'Index');
 		$menuItem->setVisible(true, '');
 		$mainMenu->addMenuItem($menuItem);
+                
+                $menuItem = new Ui_Element_MenuItem('cadOrdem', 'Pedidos', 'Ordem', 'iframePrincipal');
+		$menuItem->setVisible('PROC_CAD_PRODUTO', 'ver');
+		$mainMenu->addMenuItem($menuItem);
 
                     // Menu Cadastros
 		$menuItem = new Ui_Element_MenuItem('cadastros', 'Cadastros');
@@ -63,11 +67,6 @@ class IndexController extends Zend_Controller_Action{
 		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
 		$menuItem->addSubMenu($menu);
 //		
-		// Cadastro de bairro
-		$menu = new Ui_Element_MenuItem('cadOrdem', 'Ordem de Serviço', 'Ordem', 'iframePrincipal');
-		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
-		$menuItem->addSubMenu($menu);
-                
                 $menuItem = new Ui_Element_MenuItem('relatorio', 'Relatórios');
 
 		$mainMenu->addMenuItem($menuItem);

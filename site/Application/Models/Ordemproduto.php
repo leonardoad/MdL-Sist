@@ -34,13 +34,17 @@ class Ordemproduto extends Db_Table {
         
         return $this->getProduto()->getTitulo();
     }
+    public function getValorTotal(){
+        
+        return $this->getQuantidade()*$this->getValorVenda();
+    }
 
         public function setDataFromRequest($post) {
         $this->setQuantidade($post->quantidade);
         $this->setID_Produto($post->id_produto);
         $this->setValorCusto($post->valorcusto);
         $this->setValorVenda($post->valorvenda);
-        $this->setValorTotal($post->valortotal);
+//        $this->setValorTotal($post->valortotal);
     }
 
 }

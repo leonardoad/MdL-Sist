@@ -19,7 +19,7 @@ class OrdemController extends Zend_Controller_Action {
 
         $grid = new Ui_Element_Grid('gridOrdens');
         $grid->setParams('Ordem', 'Ordem/listaordem');
-//		$grid->setOrder('Nome');
+		$grid->setOrder('DataPedido','DESC');
 
         $button = new Ui_Element_Grid_Button('btnNovo', 'Inserir');
         $button->setImg('Buttons/Novo.png');
@@ -38,6 +38,7 @@ class OrdemController extends Zend_Controller_Action {
 
         $column = new Ui_Element_Grid_Column_Text('Cliente', 'nomecliente', '150');
         $grid->addColumn($column);
+
         $column = new Ui_Element_Grid_Column_Text('Email', 'emailcliente', '150');
         $grid->addColumn($column);
 //
@@ -47,10 +48,10 @@ class OrdemController extends Zend_Controller_Action {
         $column = new Ui_Element_Grid_Column_Text('Entrega', 'dataentrega', '70');
         $grid->addColumn($column);
 
-        $column = new Ui_Element_Grid_Column_Text('Valor Venda', 'valorvenda', '100');
+        $column = new Ui_Element_Grid_Column_Text('Valor Custo', 'totalcusto', '100');
         $grid->addColumn($column);
 
-        $column = new Ui_Element_Grid_Column_Text('Valor Custo', 'valorcusto', '100');
+        $column = new Ui_Element_Grid_Column_Text('Valor Venda', 'totalvenda', '100');
         $grid->addColumn($column);
 
 
@@ -77,6 +78,10 @@ class OrdemController extends Zend_Controller_Action {
         $form->setAction('Ordem');
         $form->setName('formOrdemEdit');
 
+        $element = new Ui_Element_Hidden('id_cliente');
+        $form->addElement($element);
+
+
         $mainTab = new Ui_Element_TabMain('editOrdemTab');
 //        $mainTab->se
 
@@ -89,19 +94,17 @@ class OrdemController extends Zend_Controller_Action {
         $element->setUncheckedValue(cFALSE);
         $tab->addElement($element);
 
-        $element = new Ui_Element_Hidden('id_cliente');
-        $element->setRequired();
-        $tab->addElement($element);
 
         $element = new Ui_Element_Text('nomecliente');
         $element->setAttrib('obrig', 'obrig');
+        $element->setAttrib('event', 'focus');
         $element->setReadOnly(TRUE);
         $element->setRequired();
         $element->setAttrib('size', '35');
         $tab->addElement($element);
 
         $element = new Ui_Element_Btn('btnCliente');
-        $element->setDisplay('Clientes', PATH_IMAGES . 'Buttons/Clientes.png'); 
+        $element->setDisplay('Clientes', PATH_IMAGES . 'Buttons/Clientes.png');
         $tab->addElement($element);
 
 
@@ -129,28 +132,40 @@ class OrdemController extends Zend_Controller_Action {
 
         $element = new Ui_Element_TextMask('percententrada');
         $element->setMask('991', true);
-        $element->setAttrib('event', 'change');
+        $element->setAttrib('event', 'blur');
         $element->setRequired();
         $element->setAttrib('size', '2');
         $tab->addElement($element);
 
         $element = new Ui_Element_TextMask('valentrada');
         $element->setMask('99,99999', true);
-        $element->setAttrib('event', 'change');
+        $element->setAttrib('event', 'blur');
         $element->setRequired();
         $element->setAttrib('size', '10');
         $tab->addElement($element);
 
         $element = new Ui_Element_TextMask('percentdesconto');
         $element->setMask('991', true);
-        $element->setAttrib('event', 'change');
+        $element->setAttrib('event', 'blur');
         $element->setRequired();
         $element->setAttrib('size', '2');
         $tab->addElement($element);
 
+        $element = new Ui_Element_TextMask('numvezes');
+        $element->setMask('99', true);
+        $element->setAttrib('event', 'blur');
+        $element->setRequired();
+        $element->setAttrib('size', '2');
+        $tab->addElement($element);
+
+        $element = new Ui_Element_TextMask('valorparcela');
+        $element->setAttrib('size', '10');
+        $element->setReadOnly(TRUE);
+        $tab->addElement($element);
+
         $element = new Ui_Element_TextMask('valdesconto');
         $element->setMask('99,99999', true);
-        $element->setAttrib('event', 'change');
+        $element->setAttrib('event', 'blur');
         $element->setRequired();
         $element->setAttrib('size', '10');
         $tab->addElement($element);
@@ -248,11 +263,15 @@ class OrdemController extends Zend_Controller_Action {
     public function btnnovoclickAction() {
         $this->edit();
     }
+
     public function btnclienteclickAction() {
         $this->redirect('Cliente/selcliente');
     }
 
-    
+    public function nomeclientefocusAction() {
+        $this->redirect('Cliente/selcliente');
+    }
+
     public function btnsalvarclickAction() {
         $form = Session_Control::getDataSession('formOrdemEdit');
 
@@ -266,10 +285,12 @@ class OrdemController extends Zend_Controller_Action {
         }
 
         $post = Zend_Registry::get('post');
-        $obj = new Ordem();
-        if (isset($post->id)) {
-            $obj->read($post->id);
-        }
+
+        $obj = Ordem::getInstance('ordemEdit');
+//        $obj = new Ordem();
+//        if (isset($post->id)) {
+//            $obj->read($post->id);
+//        }
         $obj->setDataFromRequest($post);
         $obj->save();
 
@@ -281,7 +302,7 @@ class OrdemController extends Zend_Controller_Action {
     }
 
     public function btnexcluirclickAction() {
-        Grid_Control::deleteDataGrid('Ordem', '', 'gridOrdem');
+        Grid_Control::deleteDataGrid('Ordem', '', 'gridOrdens');
     }
 
     public function btncancelarclickAction() {
@@ -290,9 +311,10 @@ class OrdemController extends Zend_Controller_Action {
         $br->send();
     }
 
-    public function gridOrdensdblclickAction() {
+    public function gridordensdblclickAction() {
         $this->edit();
     }
+
 //    public function okselclienteAction() {
 //        $post = Zend_Registry::get('post');
 //        $br = new Browser_Control();
@@ -309,7 +331,7 @@ class OrdemController extends Zend_Controller_Action {
 //        }
 //        $br->send();
 //    }
-    
+
     public function listaordemAction() {
         $obj = new Ordem();
         Grid_Control::setDataGrid($obj);
@@ -323,7 +345,9 @@ class OrdemController extends Zend_Controller_Action {
 
 
         $lOrdemProdutoLst = $lOrdem->getOrdemProdutoLst();
-        Grid_Control::setDataGrid($lOrdemProdutoLst, false, FALSE);
+        if($lOrdemProdutoLst->countItens()>0){
+            Grid_Control::setDataGrid($lOrdemProdutoLst, false, FALSE);
+        }
     }
 
     public function btnnovoprodutoclickAction() {
@@ -462,7 +486,7 @@ class OrdemController extends Zend_Controller_Action {
         for ($i = 0; $i < $lOrdemProdutoLst->countItens(); $i++) {
             $Item = $lOrdemProdutoLst->getItem($i);
             if (!$Item->deleted()) {
-                $valorTotal += $Item->getValorTotal();
+                $valorTotal += $Item->getValorVenda() * $Item->getQuantidade();
                 $valorTotalCusto += $Item->getValorCusto() * $Item->getQuantidade();
             }
         }
@@ -481,7 +505,17 @@ class OrdemController extends Zend_Controller_Action {
         Session_Control::setDataSession('formOrdemProdutoEdit', '');
     }
 
-    public function percententradachangeAction() {
+    public function numvezesblurAction() {
+        $post = Zend_Registry::get('post');
+        $lOrdem = Ordem::getInstance('ordemEdit');
+        $lOrdem->setNumVezes($post->controlValue);
+
+        $lOrdem->setInstance('ordemEdit');
+        $br = new Browser_Control();
+        $this->atualizaCamposTela($br);
+        $br->send();
+    }
+    public function percententradablurAction() {
         $post = Zend_Registry::get('post');
 
         $lOrdem = Ordem::getInstance('ordemEdit');
@@ -495,11 +529,12 @@ class OrdemController extends Zend_Controller_Action {
         $this->atualizaCamposTela($br);
         $br->send();
     }
-    public function valentradachangeAction() {
+
+    public function valentradablurAction() {
         $post = Zend_Registry::get('post');
         $lOrdem = Ordem::getInstance('ordemEdit');
         $lOrdem->setValEntrada($post->controlValue);
-        $lOrdem->setPercentEntrada(number_format((100* $post->controlValue / $lOrdem->getTotalVendaComDesconto() )));
+        $lOrdem->setPercentEntrada(number_format((100 * $post->controlValue / $lOrdem->getTotalVendaComDesconto())));
 
         $lOrdem->setInstance('ordemEdit');
         $br = new Browser_Control();
@@ -507,7 +542,8 @@ class OrdemController extends Zend_Controller_Action {
         $br->send();
     }
 
-    public function percentdescontochangeAction() {
+    
+    public function percentdescontoblurAction() {
         $post = Zend_Registry::get('post');
         $lOrdem = Ordem::getInstance('ordemEdit');
         $lOrdem->setPercentDesconto($post->controlValue);
@@ -521,11 +557,11 @@ class OrdemController extends Zend_Controller_Action {
         $br->send();
     }
 
-    public function valdescontochangeAction() {
+    public function valdescontoblurAction() {
         $post = Zend_Registry::get('post');
         $lOrdem = Ordem::getInstance('ordemEdit');
         $lOrdem->setValDesconto($post->controlValue);
-        $lOrdem->setPercentDesconto(number_format((100* $post->controlValue / $lOrdem->getTotalVenda() )));
+        $lOrdem->setPercentDesconto(number_format((100 * $post->controlValue / $lOrdem->getTotalVenda())));
         $lOrdem->setValEntrada(number_format(($lOrdem->getTotalVendaComDesconto() * ($lOrdem->getPercentEntrada() / 100)), 2));
         $lOrdem->setInstance('ordemEdit');
         $br = new Browser_Control();
@@ -535,7 +571,10 @@ class OrdemController extends Zend_Controller_Action {
 
     public function atualizaCamposTela(&$br) {
         $lOrdem = Ordem::getInstance('ordemEdit');
+        $lOrdem->setValDesconto(number_format(($lOrdem->getTotalVenda() * ($lOrdem->getPercentDesconto() / 100)), 2));
+        $lOrdem->setValEntrada(number_format(($lOrdem->getTotalVendaComDesconto() * ($lOrdem->getPercentEntrada() / 100)), 2));
 
+        $br->addFieldValue('valorparcela', $lOrdem->getValorParcela());
         $br->addFieldValue('percententrada', $lOrdem->getPercentEntrada());
         $br->addFieldValue('valentrada', $lOrdem->getvalentrada());
         $br->addFieldValue('percentdesconto', $lOrdem->getPercentDesconto());
@@ -547,6 +586,22 @@ class OrdemController extends Zend_Controller_Action {
 
     public function btnexcluirprodutoclickAction() {
         Grid_Control::deleteDataGrid('ordemEdit', 'OrdemProdutoLst');
+
+
+        $lOrdem = Ordem::getInstance('ordemEdit');
+        $lOrdemProdutoLst = &$lOrdem->getOrdemProdutoLst();
+        for ($i = 0; $i < $lOrdemProdutoLst->countItens(); $i++) {
+            $Item = $lOrdemProdutoLst->getItem($i);
+            if (!$Item->deleted()) {
+                $valorTotal += $Item->getValorVenda() * $Item->getQuantidade();
+                $valorTotalCusto += $Item->getValorCusto() * $Item->getQuantidade();
+            }
+        }
+
+        $lOrdem->setTotalVenda($valorTotal);
+        $lOrdem->setTotalCusto($valorTotalCusto);
+
+        $lOrdem->setInstance('ordemEdit');
         $br = new Browser_Control();
         $this->atualizaCamposTela($br);
         $br->setUpdateGrid('gridProdutos');

@@ -1,13 +1,14 @@
 <table>
   
   <tr>
-    <td><label for="percententrada">Entrada:</label></td>
-    <td>{$percententrada}% ou R${$valentrada}</td>
-  </tr>
-  <tr>
     <td><label for="percentdesconto">Desconto:</label></td>
     <td>{$percentdesconto}% ou R${$valdesconto}</td>
   </tr>
+  <tr>
+    <td><label for="percententrada">Entrada:</label></td>
+    <td>{$percententrada}% ou R${$valentrada} + {$numvezes} vezes de {$valorparcela}</td>
+  </tr>
+   
   <tr>
     <td><label for="totalcusto">Total Custo(R$):</label></td>
     <td>{$totalcusto}</td>

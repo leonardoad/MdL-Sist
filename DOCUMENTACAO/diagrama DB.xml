@@ -87,11 +87,14 @@
 <row name="ativo" null="1" autoincrement="0">
 <datatype>CHAR(1)</datatype>
 <default>NULL</default></row>
-<row name="nome" null="1" autoincrement="0">
+<row name="nome" null="0" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
-<default>NULL</default></row>
-<row name="email" null="1" autoincrement="0">
+<default>'NULL'</default></row>
+<row name="email" null="0" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
+<default>'NULL'</default></row>
+<row name="datanascimento" null="1" autoincrement="0">
+<datatype>DATE</datatype>
 <default>NULL</default></row>
 <row name="fone" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
@@ -102,25 +105,25 @@
 <row name="fone3" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
 <default>NULL</default></row>
-<row name="logradouro" null="0" autoincrement="0">
+<row name="logradouro" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
-<default>'NULL'</default></row>
+<default>NULL</default></row>
 <row name="numero" null="1" autoincrement="0">
 <datatype>VARCHAR(10)</datatype>
 <default>NULL</default></row>
-<row name="complemento" null="0" autoincrement="0">
+<row name="complemento" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
-<default>'NULL'</default></row>
+<default>NULL</default></row>
 <row name="bairro" null="0" autoincrement="0">
 <datatype>VARCHAR(50)</datatype>
 <default>'NULL'</default></row>
-<row name="cidade" null="0" autoincrement="0">
+<row name="cidade" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 </row>
 <row name="uf" null="0" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
 <default>'NULL'</default></row>
-<row name="cep" null="0" autoincrement="0">
+<row name="cep" null="1" autoincrement="0">
 <datatype>VARCHAR(20)</datatype>
 </row>
 <key type="PRIMARY" name="">
@@ -188,9 +191,6 @@
 <datatype>DECIMAL(12,2)</datatype>
 <default>NULL</default></row>
 <row name="valorvenda" null="1" autoincrement="0">
-<datatype>DECIMAL(12,2)</datatype>
-<default>NULL</default></row>
-<row name="valortotal" null="1" autoincrement="0">
 <datatype>DECIMAL(12,2)</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">

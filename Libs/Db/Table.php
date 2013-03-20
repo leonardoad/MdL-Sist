@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Classe para manipulação dos objetos
+ * 
+ * @version 19/03/2013
+ * @author Ismael Sleifer <ismael@gmail.com.br>
+ * @author Leonardo Danieli <leonardo@4coffee.com.br>
+ * 
+ */
 class Db_Table extends Zend_Db_Table {
 
     /**
@@ -81,8 +89,8 @@ class Db_Table extends Zend_Db_Table {
     protected $_log_ativo = cLOG_ATIVA;
 
     /**
-     * Habilita ou desabilita a formatação dos valores lidos do bando,
-     * no bando de dados os valores estão salvos no formato html, mas quando e lido os valores para colocar no campos de texto aparece os
+     * Habilita ou desabilita a formatação dos valores lidos do banco,
+     * no banco de dados os valores estão salvos no formato html, mas quando e lido os valores para colocar no campos de texto aparece os
      * valores em html e usado para corrigir isso a função Format_String::htmlToString();, mas na comparação dos dados do log ela não pode
      * ser usada, pois quando os dados vem pelo post o sistema trata os dados para evitar SQL Injection ou funções javaScript
      */
@@ -343,20 +351,7 @@ class Db_Table extends Zend_Db_Table {
         }
     }
 
-    /**
-     * Busca um item na lista procurando pelo id e sobrescreve ele com o item passado
-     * @param int $id id do item procurado
-     * @param obj $pItem item que vai substituir o da lista
-     * @return object
-     */
-    public function setItemById($id, $pItem) {
-        foreach ($this->_list as $key => $item) {
-            if ($item->getID() == $id) {
-                $this->_list[$key] = $pItem;
-                break;
-            }
-        }
-    }
+     
 
     /**
      * Adiciona ou substitui (se passado o index) um item na lista
@@ -653,7 +648,7 @@ class Db_Table extends Zend_Db_Table {
             throw new Zend_Db_Table_Exception('O ID do objeto não foi passado ou não está setado no objeto');
         }
 
-        $this->where($this->getPrimaryName(), $this->getID());
+        $this->where($this->_name.'.'.$this->getPrimaryName(), $this->getID());
 
         if ($this->_removeJoin) {
             $this->_joins = array();
@@ -679,7 +674,7 @@ class Db_Table extends Zend_Db_Table {
             foreach ($row as $key => $value) {
                 $key = 'a_' . $key;
                 if ($this->_formatData) {
-                    $this->$key = $value;
+                    $this->$key = FormataDados::formataDadosRead($value);
                 } else {
                     $this->$key = $value;
                 }
@@ -736,7 +731,7 @@ class Db_Table extends Zend_Db_Table {
             foreach ($row as $key => $value) {
                 $key = 'a_' . $key;
                 if ($this->_formatData) {
-                    $item->$key = $value;
+                    $item->$key = FormataDados::formataDadosRead($value);
                 } else {
                     $item->$key = $value;
                 }

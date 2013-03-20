@@ -128,14 +128,14 @@ class Grid_Control{
 			if(!$colocaOID)
                             $id = $obj->getPrimaryName();
 		}
-//                if($obj->countItens()!=0){
+                if($obj->countItens()==0){
                     $obj->setReadCount();
                     $obj->limit($post->page, $post->rp);
                     if($post->sortname != ''){
                             $obj->sortOrder($post->sortname ,	$post->sortorder);
                     }
                     $obj->readLst();
-//                }
+                }
                 $totalItens = $obj->getTotalItens()>0?$obj->getTotalItens():$obj->countItens();
                 
 		$dataGrid = Grid_Control::setDataGridJson($columns, $post->page,$totalItens , $obj, $id, $return);
