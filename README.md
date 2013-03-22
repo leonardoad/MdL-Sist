@@ -2,4 +2,4 @@ MdL-Sist
 
 ========
 
-Sistema de controve de Ordens de serviço
+Sistema de controle de Ordens de Serviço
