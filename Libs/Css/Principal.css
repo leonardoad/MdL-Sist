@@ -8,13 +8,15 @@ body {
     font-family: Arial;
     font-size: 12px;
     background-color: #ffcccc;
+	background: url('../../site/Public/Images/stripe.png')
 }
 
 .header{
     margin: 10px 10px 2px 10px;
     padding: 5px;
-    background-color: #ffffcc;
-    border: dotted #f6a828 1px;
+    background-color: #FCA7A7;
+   // border: dotted #f6a828 1px;
+    border: dotted #ffffcc 1px;
     height: 32px; 
 }
 .header div{
@@ -24,8 +26,9 @@ body {
 #conteudo{
     margin: 2px 10px 10px 10px;
     padding: 5px;
-    background-color: #ffffcc;
-    border: dotted #f6a828 1px;
+   // background-color: #ffffcc;
+    background-color: #FCA7A7;
+    border: dotted #ffffcc 1px;
     height: 90%
 }
 
@@ -89,13 +92,6 @@ span{
 }
 
  
-#containerPrincipal {
-    
-     
-     border: 1px solid #000;
-     
-    
-}
 
 #containerMenu {
     margin: 0 10px 0 10px;

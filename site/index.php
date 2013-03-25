@@ -87,12 +87,12 @@ if (count($_POST) > 0) {
 }
 //print'<pre>';
 //die(print_r($array));
-//die(print_r(count($array) . " > (5 + $pos)"));
+//die(print_r(  "{$array[3 + $pos]} != NULL"));
 
 /* tudo que tiver depois do endereço padrao é parametro. */
 //if (count($array) > (5 + $pos)) {
-if ($array[4 + $pos] != NULL) {
-    for ($i = (4 + $pos); $i < count($array); $i++) {
+if ($array[3 + $pos] != NULL) {
+    for ($i = (3 + $pos); $i < count($array); $i++) {
         $post[$array[$i]] = rawurldecode($array[++$i]);
     }
 }
