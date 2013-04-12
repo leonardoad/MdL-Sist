@@ -37,7 +37,7 @@ class FormataDados{
 	 * @param String|Object $valor
 	 * @param String $tipo
 	 */
-	public static function formataDadosRead($valor, $tipo){
+	public static function formataDadosRead($valor='', $tipo=''){
 
 		if(is_object($valor)){
 			$key = 'a_'.$tipo;

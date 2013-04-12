@@ -15,7 +15,9 @@
  * @subpackage		zendframework.system
  * @version			1.0
  */
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
+
+error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
 //error_reporting(0);
 
 // BASE eh o caminho apartir da raiz do site(Ex.: na locaweb e o "public_htm", mas o caminho fica sem o "public_html")
