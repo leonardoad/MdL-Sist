@@ -46,10 +46,12 @@ class Arquivo extends Db_Table {
         $view->assign('editar', Usuario::verificaAcesso('PROC_CAD_ARQUIVOS', 'editar'));
         $view->assign('excluir', Usuario::verificaAcesso('PROC_CAD_ARQUIVOS', 'excluir'));
         $view->assign('albuns', $album);
-        if ($arquivoLst->countItens() <= 1) {
+        if ($arquivoLst->countItens() == 1) {
             return $view->fetch('Albuns/umaFoto.tpl');
-        }else
+        }else if ($arquivoLst->countItens() > 1) 
             return $view->fetch('Albuns/albuns.tpl');
+        else
+            return '';
     }
 
     public function excluir() {
