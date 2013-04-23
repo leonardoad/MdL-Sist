@@ -235,18 +235,22 @@ class OrdemController extends Zend_Controller_Action {
         $obj->setInstance('ordemEdit');
         $form->setDataForm($obj);
 
-        $salvar = new Ui_Element_Btn('btnSalvar');
-        $salvar->setDisplay('Salvar', PATH_IMAGES . 'Buttons/Ok.png');
+        $element = new Ui_Element_Btn('btnSalvar');
+        $element->setDisplay('Salvar', PATH_IMAGES . 'Buttons/Ok.png');
         if (isset($post->id)) {
-            $salvar->setAttrib('params', 'id=' . $post->id);
+            $element->setAttrib('params', 'id=' . $post->id);
         }
-        $salvar->setAttrib('sendFormFields', '1');
-        $salvar->setAttrib('validaObrig', '1');
-        $form->addElement($salvar);
+        $element->setAttrib('sendFormFields', '1');
+        $element->setAttrib('validaObrig', '1');
+        $form->addElement($element);
 
-        $cancelar = new Ui_Element_Btn('btnCancelar');
-        $cancelar->setDisplay('Cancelar', PATH_IMAGES . 'Buttons/Cancelar.png');
-        $form->addElement($cancelar);
+        $element = new Ui_Element_Btn('btnCancelar');
+        $element->setDisplay('Cancelar', PATH_IMAGES . 'Buttons/Cancelar.png');
+        $form->addElement($element);
+
+        $element = new Ui_Element_Btn('btnVisualizarEmail');
+        $element->setDisplay('Vizualizar Email', PATH_IMAGES . 'Buttons/Visualizar.png');
+        $form->addElement($element);
 
         $form->setDataSession();
 
@@ -260,6 +264,26 @@ class OrdemController extends Zend_Controller_Action {
         $br->send();
     }
 
+    public function btnvisualizaremailclickAction() {
+        $br = new Browser_Control();
+        $br->setNewTab(HTTP_REFERER.'Ordem/visualizaemail');
+        $br->send();
+    }
+
+    public function visualizaemailAction() {
+        $view = Zend_Registry::get('view');
+        $ordem = Session_Control::getDataSession('ordemEdit');
+        
+        
+        
+        $view->assign('nomeCliente', $ordem->getNomeCliente());
+        
+        
+        $html = $view->fetch( 'Ordem/email.tpl');
+        $view->assign('scripts', Browser_Control::getScripts());
+        $view->assign('body', $html);
+        $view->output('index.tpl');
+    }
     public function btnnovoclickAction() {
         $this->edit();
     }

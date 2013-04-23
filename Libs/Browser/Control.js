@@ -261,6 +261,8 @@ function returnRequest(data){
         	validaForm(obj);
         }else if (obj.action == 'REMOVEATTR'){
         	$('#' +obj.id).removeAttr(obj.attr);
+        }else if (obj.action == 'NEWTAB'){
+        	window.open(obj.url,'_blank')
         }
     });
     marcaObrig();	

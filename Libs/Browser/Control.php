@@ -173,6 +173,9 @@ class Browser_Control {
 	public function setNewScript($script) {
 		$this->addAction(array('action' => 'ADDSCRIPT', 'script' => '<script type="text/javascript" src="' . PATH_SCRIPTS . $script . '"></script>'));
 	}
+	public function setNewTab($url) {
+		$this->addAction(array('action' => 'NEWTAB', 'url' => $url));
+	}
 
 	/**
 	 * Cria uma Janela

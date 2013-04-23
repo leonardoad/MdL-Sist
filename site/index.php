@@ -111,7 +111,7 @@ $view->setEscape('htmlentities');
 $view->addHelperPath('../Libs/View/Helpers');
 $view->assign('baseUrl', BASE_URL);
 
-// HTTP_REFERER eh o endereco web do site ou sistema mais a URL base que é a pasta dentro do servidor em q se encontra os site ou sistema.
+/** HTTP_REFERER eh o endereco web do site ou sistema mais a URL base que é a pasta dentro do servidor em q se encontra os site ou sistema.*/
 define('HTTP_REFERER', HTTP_HOST . BASE_URL);
 $view->assign('HTTP_REFERER', HTTP_REFERER);
 
