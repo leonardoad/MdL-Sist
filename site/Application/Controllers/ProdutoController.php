@@ -157,7 +157,7 @@ class ProdutoController extends Zend_Controller_Action {
 
 
         $w = new Ui_Window('EditProduto', 'Edição de produto', $form->displayTpl($view, 'Produto/edit.tpl'), true);
-        $w->setDimension('700', '670');
+        $w->setDimension('700', '400');
         $w->setCloseOnEscape(true);
         $br = new Browser_Control();
         $br->newWindow($w);

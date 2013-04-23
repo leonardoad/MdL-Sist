@@ -253,7 +253,7 @@ class OrdemController extends Zend_Controller_Action {
 
 
         $w = new Ui_Window('EditOrdem', 'Edição de Ordem de Serviço', $form->displayTpl($view, 'Ordem/edit.tpl'), true);
-        $w->setDimension('800', '500');
+        $w->setDimension('800', '550');
         $w->setCloseOnEscape(true);
         $br = new Browser_Control();
         $br->newWindow($w);
@@ -431,7 +431,7 @@ class OrdemController extends Zend_Controller_Action {
         $view = Zend_Registry::get('view');
 
         $w = new Ui_Window('insertProduto', 'Produtos', $form->displayTpl($view, 'Ordem/addProduto.tpl'));
-        $w->setDimension('400', '200');
+        $w->setDimension('450', '250');
         $br->newWindow($w);
         $br->send();
     }
