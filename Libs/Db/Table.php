@@ -754,6 +754,15 @@ class Db_Table extends Zend_Db_Table {
     public function readGrid($modo = 'obj') {
         return $this->readLst($modo);
     }
+    
+    /** retorna o tipo da coluna no banoc de dados.
+     * 
+     * @param String $nomeColuna
+     * @return String
+     */
+    public function getTipoColuna($nomeColuna) {
+        return $this->_metadata[$nomeColuna]['DATA_TYPE'];
+    }
 
     public function save() {
         if ($this->countItens() > 0) {

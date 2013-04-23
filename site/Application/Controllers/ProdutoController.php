@@ -3,7 +3,7 @@
 class ProdutoController extends Zend_Controller_Action {
 
     public function init() {
-//        Browser_Control::setScript('js', 'Mask', 'Mask/Mask.js');
+        Browser_Control::setScript('js', 'Mask', 'Mask/Mask.js');
 
         Browser_Control::setScript('js', 'Easydrag', 'easydrag.js');
 
@@ -90,21 +90,23 @@ class ProdutoController extends Zend_Controller_Action {
         $tab->addElement($element);
 
         
-        $element = new Ui_Element_Text('valorcusto');
+        $element = new Ui_Element_TextMask('valorcusto');
+        $element->setMask('99,99999', true);
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
-        $element->setAttrib('size', '15');
+        $element->setAttrib('size', '10');
         $tab->addElement($element);
         
-        $element = new Ui_Element_Text('valorvenda');
+        $element = new Ui_Element_TextMask('valorvenda');
+        $element->setMask('99,99999', true);
         $element->setAttrib('obrig', 'obrig');
         $element->setRequired();
-        $element->setAttrib('size', '15');
+        $element->setAttrib('size', '10');
         $tab->addElement($element);
 
         $element = new Ui_Element_Textarea('descricao');
-        $element->setAttrib('obrig', 'obrig');
-        $element->setRequired();
+//        $element->setAttrib('obrig', 'obrig');
+//        $element->setRequired();
         $element->setAttrib('rows', '5');
         $element->setAttrib('cols', '50');
         $tab->addElement($element);
