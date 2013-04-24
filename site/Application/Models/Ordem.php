@@ -44,6 +44,10 @@ class Ordem extends Db_Table {
     public function getEmailCliente() {
         return $this->getCliente()->getEmail();
     }
+    public function getTelefonesCliente() {
+        $cliente = $this->getCliente();
+        return $cliente->getTelefone().'<br />'.$cliente->getTelefone2().'<br />'.$cliente->getTelefone3();
+    }
 
     public function getOrdemProdutoLst() {
         if (!$this->OrdemProdutoLst) {

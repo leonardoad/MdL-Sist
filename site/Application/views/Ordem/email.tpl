@@ -16,19 +16,48 @@
             padding: 15px;
             width: 750px;
         }
-    </style>
+        .tabelaValores{
+
+        }
+    </style> 
 {/literal}
 <div class="fundoPaper">
     <div class="paper">
-        <table width="578">
+        <table  width="100%" border="1">
             <tr>
-                <td valign="top">{$codigoOS}</td>
+                <td valign="top">
+                    <p>Mural das Lembrancinhas</p>
+                    <p>muraldaslembrancinhas.blogspot.com</p>
+                </td>
+                <td valign="top"><h3>Pedido</h3></td>
+                <td valign="top">
+                    <h4>Num Pedido: {$codigoOS}OS004</h4>
+                    <p>Pedido: {$dataPedido}<br />
+                        Entrega: <span class="dataEntrega">{$dataEntrega}</span></p>
+                </td>
             </tr>
             <tr>
-                <td valign="top">{$nomeCliente}</td>
+                <td valign="top" colspan="3">Cliente:{$nomeCliente}<br>Email:{$emailCliente}<br>Telefones:{$telefoneCliente}</td>
             </tr>
             <tr>
-                <td valign="top">{$produtoLst}</td>
+                <td valign="top" colspan="3">
+                    <table  width="100%" border="1">
+                        <tr>
+                            <th >Descricao</th>
+                            <th >Quant.</th>
+                            <th >Valor<br />Unitário</th>
+                            <th >Valor<br />Total</th>
+                        </tr>
+                        {section name=i loop=$itemLst} 
+                            <tr>
+                                <td >{$itemLst[i].descricao}</td>
+                                <td >{$itemLst[i].quant}</td>
+                                <td >{$itemLst[i].valUnitario}</td>
+                                <td >{$itemLst[i].valTotal}</td>
+                            </tr>
+                        {/section}
+                    </table>
+                </td>
             </tr>
         </table>
     </div> 

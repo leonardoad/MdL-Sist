@@ -275,8 +275,12 @@ class OrdemController extends Zend_Controller_Action {
         $ordem = Session_Control::getDataSession('ordemEdit');
         
         
+        $view->assign('dataPedido', $ordem->getDataPedido());
+        $view->assign('dataEntrega', $ordem->getDataEntrega());
         
         $view->assign('nomeCliente', $ordem->getNomeCliente());
+        $view->assign('emailCliente', $ordem->getEmailCliente());
+        $view->assign('telefoneCliente', $ordem->getTelefonesCliente());
         
         
         $html = $view->fetch( 'Ordem/email.tpl');
