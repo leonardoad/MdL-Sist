@@ -594,6 +594,7 @@ class Db_Table extends Zend_Db_Table {
      * @param type $valor
      * @param type $oper
      * @param type $glue 
+     * @deprecated since version 1
      */
     public function addFilters($campo, $valor, $oper = '=', $glue = 'and') {
         if ($oper == 'like' || $oper == 'ilike') {

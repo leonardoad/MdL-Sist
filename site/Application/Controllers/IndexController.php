@@ -68,6 +68,10 @@ class IndexController extends Zend_Controller_Action{
 		$menuItem->addSubMenu($menu);
 //		
                 $menuItem = new Ui_Element_MenuItem('relatorio', 'Relatórios');
+		// Cadastro de cidades
+		$menu = new Ui_Element_MenuItem('relPedidos', 'Pedidos', 'Relatorios/pedidos', '_blank');
+		$menu->setVisible('PROC_CAD_PRODUTO', 'ver');
+		$menuItem->addSubMenu($menu);
 
 		$mainMenu->addMenuItem($menuItem);
 
