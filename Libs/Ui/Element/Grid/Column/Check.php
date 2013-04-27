@@ -25,12 +25,12 @@ class Ui_Element_Grid_Column_Check extends Ui_Element_Grid_Column_Abstract {
 		Session_Control::setDataSession('row_'.$post->idGrid, $numRow);
 
 
-		if($this->verificaCondicao($row)){
+//		if($this->verificaCondicao($row)){
 			$html = "<input type='checkbox' alt='{$this->alt}' title='{$this->alt}' id='gridChk_{$numRow}' name='gridChk_{$numRow}' ";
 			$html .= "col='{$this->getName()}' {$this->getAttribs()} value='{$oid}'>";
-		}else{
-			$html = '';
-		}
+//		}else{
+//			$html = '';
+//		}
 
 		return trim($html);
 	}

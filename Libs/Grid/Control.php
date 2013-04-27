@@ -128,6 +128,7 @@ class Grid_Control{
 			if(!$colocaOID)
                             $id = $obj->getPrimaryName();
 		}
+                $obj->setTotalItens(0);
                 if($obj->countItens()==0){
                     $obj->setReadCount();
                     $obj->limit($post->page, $post->rp);

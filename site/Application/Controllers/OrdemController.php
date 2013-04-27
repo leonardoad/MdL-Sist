@@ -19,7 +19,7 @@ class OrdemController extends Zend_Controller_Action {
 
         $grid = new Ui_Element_Grid('gridOrdens');
         $grid->setParams('Ordem', 'Ordem/listaordem');
-		$grid->setOrder('DataPedido','DESC');
+        $grid->setOrder('DataPedido', 'DESC');
 
         $button = new Ui_Element_Grid_Button('btnNovo', 'Inserir');
         $button->setImg('Buttons/Novo.png');
@@ -266,28 +266,53 @@ class OrdemController extends Zend_Controller_Action {
 
     public function btnvisualizaremailclickAction() {
         $br = new Browser_Control();
-        $br->setNewTab(HTTP_REFERER.'Ordem/visualizaemail');
+        $br->setNewTab(HTTP_REFERER . 'Ordem/visualizaemail');
         $br->send();
     }
 
     public function visualizaemailAction() {
         $view = Zend_Registry::get('view');
-        $ordem = Session_Control::getDataSession('ordemEdit');
+        $lOrdem = Session_Control::getDataSession('ordemEdit');
+
+
+        $view->assign('dataPedido', $lOrdem->getDataPedido());
+        $view->assign('dataEntrega', $lOrdem->getDataEntrega());
+
+        $view->assign('nomeCliente', $lOrdem->getNomeCliente());
+        $view->assign('emailCliente', $lOrdem->getEmailCliente());
+        $view->assign('telefoneCliente', $lOrdem->getTelefonesCliente());
+        $OrdemProdutoLst = $lOrdem->getOrdemProdutoLst();
+        for ($i = 0; $i < $OrdemProdutoLst->countItens(); $i++) {
+            $Item = $OrdemProdutoLst->getItem($i);
+            $item['Titulo'] = $Item->getTitulo();
+            $item['Quantidade'] = $Item->getQuantidade();
+            $item['ValorVenda'] = $Item->getValorVenda();
+            $item['ValorTotal'] = $Item->getValorTotal();
+            
+            $itemLst[] = $item;
+            
+            $itemTotal['Quantidade'] += $Item->getQuantidade();
+            $itemTotal['ValorVenda'] += $Item->getValorVenda();
+            $itemTotal['ValorTotal'] += $Item->getValorTotal();
+        }
+        $itemTotal['Titulo'] = "<b>Total:</b>";
+        $itemLst[] = $itemTotal;
+
+        $view->assign('itemLst', $itemLst);
         
-        
-        $view->assign('dataPedido', $ordem->getDataPedido());
-        $view->assign('dataEntrega', $ordem->getDataEntrega());
-        
-        $view->assign('nomeCliente', $ordem->getNomeCliente());
-        $view->assign('emailCliente', $ordem->getEmailCliente());
-        $view->assign('telefoneCliente', $ordem->getTelefonesCliente());
-        
-        
-        $html = $view->fetch( 'Ordem/email.tpl');
+        // forma de pagamento
+        $view->assign('valorTotal', $itemTotal['ValorTotal']);
+        $view->assign('valorEntrada', $lOrdem->getValEntrada());
+        $view->assign('numParcelas', $lOrdem->getNumVezes());
+        $view->assign('valorParcela', $lOrdem->getValorParcela());
+
+
+        $html = $view->fetch('Ordem/email.tpl');
         $view->assign('scripts', Browser_Control::getScripts());
         $view->assign('body', $html);
         $view->output('index.tpl');
     }
+
     public function btnnovoclickAction() {
         $this->edit();
     }
@@ -373,7 +398,7 @@ class OrdemController extends Zend_Controller_Action {
 
 
         $lOrdemProdutoLst = $lOrdem->getOrdemProdutoLst();
-        if($lOrdemProdutoLst->countItens()>0){
+        if ($lOrdemProdutoLst->countItens() > 0) {
             Grid_Control::setDataGrid($lOrdemProdutoLst, false, FALSE);
         }
     }
@@ -506,7 +531,7 @@ class OrdemController extends Zend_Controller_Action {
 
         $lOrdem = Ordem::getInstance('ordemEdit');
 
-        $lOrdemProdutoLst = &$lOrdem->getOrdemProdutoLst();
+        $lOrdemProdutoLst = $lOrdem->getOrdemProdutoLst();
 
 
         $lOrdemProdutoLst->addItem($lItem, $post->id);
@@ -543,6 +568,7 @@ class OrdemController extends Zend_Controller_Action {
         $this->atualizaCamposTela($br);
         $br->send();
     }
+
     public function percententradablurAction() {
         $post = Zend_Registry::get('post');
 
@@ -570,7 +596,6 @@ class OrdemController extends Zend_Controller_Action {
         $br->send();
     }
 
-    
     public function percentdescontoblurAction() {
         $post = Zend_Registry::get('post');
         $lOrdem = Ordem::getInstance('ordemEdit');
