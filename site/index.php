@@ -24,6 +24,27 @@ error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
 //define('BASE', "");  
 //define('BASE', "desenv/testes/TopChaves/Site");  
 define('BASE', "mdlsist/MdL-Sist");  
+// ====  Configura��es iniciais do sistema =====
+switch ($_SERVER['HTTP_HOST']) {
+
+    case '192.168.0.107':
+    case 'localhost':
+        error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
+        $dbconfig = 'local';
+        define('BASE', "projects/mdlsist"); // BASE eh o caminho apartir da raiz do site(Ex.: na locaweb e o "public_htm", mas o caminho fica sem o "public_html")
+        break;
+
+    case 'www.muraldaslembrancinhas.com.br':
+        $_SERVER['HTTP_HOST'] = 'muraldaslembrancinhas.com.br';
+   case 'muraldaslembrancinhas-com-br.umbler.net': 
+    case 'muraldaslembrancinhas.com.br':  
+
+        error_reporting(E_ERROR);
+//        error_reporting(E_ALL ^ E_NOTICE | E_STRICT);
+        $dbconfig = 'producao';
+        define('BASE', ""); // BASE eh o caminho apartir da raiz do site(Ex.: na locaweb e o "public_htm", mas o caminho fica sem o "public_html")
+        break;
+}
 
 // HTTP_HOST eh endereco web do site ex: "http://facebook.com"
 define('HTTP_HOST', 'http://' . $_SERVER['HTTP_HOST']);
